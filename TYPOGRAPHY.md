@@ -29,3 +29,15 @@ The portable APIs are `patchquest.typography.font` and `patchquest.typography.la
 `layout(..., vertical_metrics='font')` reserves the profile's full height for each line and uses `line_step` between baselines. This keeps related menu rows aligned despite differing ascenders/descenders. The default `'ink'` retains whole-block ink centering and existing output. Neither option changes artwork, glyph advances, translation spelling or control semantics. Both reject overflow instead of clipping. Explicit padding may justify asymmetric integer margins; inspect the visible result rather than treating a profile as blanket UI approval.
 
 Resource-limited adapters can use `patchquest.core.packing.pack_blobs` to place indivisible byte assets into explicitly verified intervals. It performs deterministic bounded backtracking, never free-space discovery. Ownership, hardware bank limits, aliases, palette behavior and buffer lifetimes remain the private adapter's responsibility. Grouping tile byte patterns can improve compression without changing pixels, but every map reference must be rebuilt and validated after reassignment.
+
+## Shared graphics and encoded text safeguards
+
+Tilemap inventories alone do not establish unused graphics. Numeric lookup tables, runtime map writers, status displays and hard-coded spacer references can consume tiles absent from static maps. Include these consumers in the allocation inventory. A blank-looking tile may be a required spacer; use a verified blank reference when repacking changes its contents. Validate related letters, digits, separators and their shared baseline together.
+
+When extending a private text encoding, audit every consumer of the stream: source expansion, dictionary substitution, progressive glyph rendering, bulk rendering and any separate tilemap parser. An operand equal to a page or end marker is still data. Check raw source and dictionary tokens for collisions, preserve control operands and their order, and test terminator-valued operands explicitly.
+
+Derive line and page limits from actual callers rather than assuming every dialogue box has the same geometry. Host-composed text must budget the largest supported substitutions, expanded bytes, glyph staging and the available live tile allocation. Generate bounded variants or retain the original path for unsupported layouts; report which paths can still display untranslated text. Preserve explicit waits and end behavior while reflowing lines. Added pages and altered reveal cadence require in-game review.
+
+Bounded CPU checks should compare rendered tile bytes, allocation lifetimes and selection restoration, including numeric extremes and different graphics bases. These checks complement screenshots; they cannot certify timing, scrolling, SRAM persistence or hardware behavior.
+
+A partial Unicode transcription is not necessarily reversible. Distinct original glyph codes can share a tentative reading. Bind retained names or other uncertain source text to verified original byte sequences rather than choosing an arbitrary inverse-table entry; keep the reading uncertainty separate from glyph identity.

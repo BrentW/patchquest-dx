@@ -24,6 +24,7 @@ RESTRICTED_EXTENSIONS = {
     '.sfc', '.smc', '.nes', '.rom', '.bin', '.fig', '.swc', '.srm', '.sav', '.sta', '.frz', '.s9x', '.spc', '.rtc',
     '.bps', '.ips', '.ups', '.dump', '.dmp', '.log', '.tmp', '.bak', '.pem', '.key', '.p12', '.pfx',
     '.zip', '.7z', '.rar', '.exe', '.dll', '.png', '.jpg', '.jpeg', '.gif', '.bmp', '.wav', '.mp3', '.ttf', '.otf',
+    '.sqlite3', '.sqlite3-wal', '.sqlite3-shm', '.db',
 }
 
 
@@ -35,6 +36,7 @@ def restricted_path(path):
     p = PurePosixPath(path)
     low = path.lower()
     return (low.startswith(('.local/', 'untranslated roms/', '.git/', 'projects/', 'private/', 'games/', 'notes/'))
+            or '.patchquest' in p.parts
             or (low.startswith('output/') and low != 'output/.gitkeep')
             or p.suffix.lower() in RESTRICTED_EXTENSIONS
             or bool(re.search(r'(?i)\.(?:state[^/]*|0[0-9][0-9]|pyc)$', low))
@@ -62,14 +64,14 @@ def scan(path, data, terms=()):
             findings.append({'category': 'local_identity_term', 'line': number})
         for address in re.findall(r'(?<![\w.])(?:\d{1,3}\.){3}\d{1,3}(?![\w.])', line):
             try:
-                if not ipaddress.ip_address(address).is_global:
+                if not ipaddress.ip_address(address).is_global and not ipaddress.ip_address(address).is_loopback:
                     findings.append({'category': 'non_public_network_address', 'line': number})
             except ValueError:
                 pass
         # Network literals require review; don't confuse SNES hex addresses with hosts.
         for address in re.findall(r'\[([0-9a-fA-F:]+)\]', line):
             try:
-                if not ipaddress.ip_address(address).is_global:
+                if not ipaddress.ip_address(address).is_global and not ipaddress.ip_address(address).is_loopback:
                     findings.append({'category': 'non_public_network_address', 'line': number})
             except ValueError:
                 pass
@@ -125,9 +127,9 @@ def local_terms(root=ROOT):
 
 def public_path(path):
     """Publication surface: adding another directory requires deliberate review."""
-    return (path in {'.gitignore','AGENTS.md','README.md','LOCALIZATION.md','TYPOGRAPHY.md',
+    return (path in {'.gitignore','AGENTS.md','CLAUDE.md','README.md','LOCALIZATION.md','TYPOGRAPHY.md',
                      'LICENSE','LICENSE-SCOPE.md','THIRD_PARTY_NOTICES.md','output/.gitkeep'}
-            or path.startswith(('src/patchquest/','tests/','tools/','docs/','config/','templates/','examples/','assets/fonts/quest-pixel/','localization/','.agents/skills/')))
+            or path.startswith(('src/patchquest/','tests/','tools/','docs/','config/','templates/','examples/','assets/fonts/quest-pixel/','localization/','.agents/skills/','.claude/skills/')))
 
 
 def history(root, terms=()):

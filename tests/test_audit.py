@@ -40,6 +40,14 @@ class PublicationAuditTests(unittest.TestCase):
         self.assertEqual(scan('notes.md', text.encode()), [])
         self.assertEqual(scan('inventory.json', json.dumps({'title': r'\xdf\xdd\xfe'}).encode()), [])
 
+    def test_local_service_docs_allowed_but_private_state_never_public(self):
+        self.assertEqual(scan('docs/service.md', b'http://127.0.0.1:8765 and http://[::1]:8765'), [])
+        for path in ('.patchquest/state.sqlite3', 'examples/.patchquest/snapshots/a.json',
+                     'docs/accidental.sqlite3-wal', '.claude/settings'+'.local.json'):
+            self.assertTrue(any(f['category']=='excluded_or_restricted_path' for f in scan(path,b'private')))
+        for path in ('CLAUDE.md','.claude/skills/snes-translation/SKILL.md'):
+            self.assertTrue(public_path(path))
+
     def test_index_secrets_tracked_ignored_files_and_worktree_all_checked(self):
         # An isolated synthetic repository only. Never stages the real workspace.
         with tempfile.TemporaryDirectory() as tmp:

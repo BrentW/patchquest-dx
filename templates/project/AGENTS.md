@@ -31,3 +31,12 @@ applicable credit, terms and provenance in font-derived packages. Private game
 content is not licensed by copying this starter. Keep detailed rights research
 private and promote only cleared reusable material. BrentW is the platform's
 public maintainer identity, not a blanket ownership assertion.
+
+For a Studio migration, import through the platform state API and preserve legacy records for exact reproduction. Active corrections and memory belong in this private project's `.patchquest/`. Freeze snapshots for new builds, reject unsupported edits explicitly, and preserve human corrections with revision checks. Read the platform's `docs/translation-studio.md` and `docs/agent-compatibility.md`; the platform must never import this project's adapter.
+
+For shared agent sessions, use `agent-context` and the platform's canonical
+collaboration skill/coordination contract. Keep task ownership, revision checks,
+protected corrections and handoffs in this project's state API. Declare shared
+resources before concurrent renderer/font work. A provider-specific instruction
+file must link to shared policy, not duplicate it. Provider runtime labels are
+not proof of tool execution or approval.

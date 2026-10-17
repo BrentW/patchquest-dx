@@ -1,6 +1,7 @@
 """Generic commands. Reports from actual projects remain private."""
 import argparse
 import json
+import sys
 from pathlib import Path
 
 from .config import doctor
@@ -8,6 +9,7 @@ from .core.context import OutputPolicy, ProjectContext
 from .core.edits import build, extract, load_source
 from .consoles.snes.inspection import inspect
 from .patches import bps
+from .state import Conflict
 
 
 def main(argv=None):
@@ -15,6 +17,13 @@ def main(argv=None):
     parser.add_argument('--platform', type=Path, default=Path(__file__).resolve().parents[2])
     commands = parser.add_subparsers(dest='command', required=True)
     commands.add_parser('doctor')
+    state = commands.add_parser('state', help='Private versioned records, memory, issues and progress as JSON')
+    state.add_argument('manifest', type=Path)
+    state.add_argument('action')
+    state.add_argument('--input', type=Path, help='JSON parameters file; use - for stdin, omit for an empty object')
+    studio = commands.add_parser('studio', help='Optional local Translation Studio; no private code execution')
+    studio.add_argument('manifest', type=Path)
+    studio.add_argument('--port', type=int, default=8765)
     check = commands.add_parser('project-check', help='Validate a manifest and its source; never import its code')
     check.add_argument('manifest', type=Path)
     inspection = commands.add_parser('inspect', help='Read one explicitly selected file; keep output private')
@@ -39,7 +48,18 @@ def main(argv=None):
     audit.add_argument('--history', action='store_true')
     args = parser.parse_args(argv)
     try:
-        if args.command == 'doctor':
+        if args.command == 'studio':
+            from .studio import serve
+            if not 0 <= args.port <= 65535:
+                raise ValueError('Invalid port')
+            serve(args.manifest, args.port)
+            return 0
+        elif args.command == 'state':
+            from .state import Store
+            from .state_api import execute
+            payload = {} if args.input is None else json.loads(sys.stdin.read() if str(args.input) == '-' else args.input.read_text(encoding='utf-8-sig'))
+            result = execute(Store(args.manifest), args.action, payload)
+        elif args.command == 'doctor':
             result = doctor(args.platform)
         elif args.command == 'project-check':
             context = ProjectContext.load(args.manifest)
@@ -79,6 +99,9 @@ def main(argv=None):
             return int(bool(report['findings']) or bool(report.get('git_history',{}).get('objects_with_findings')))
         print(json.dumps(result,indent=2))
         return 0
+    except Conflict:
+        print(json.dumps({'error':'conflict','message':'State changed or protected input differs. Reload and reconcile; do not blindly retry.'}))
+        return 3
     except (ValueError,OSError,KeyError,TypeError) as error:
         # Exceptions may contain private paths, source identifiers or content.
         parser.exit(2, f'Validation failed ({type(error).__name__}); inspect private inputs and setup documentation.\n')

@@ -39,6 +39,10 @@ Prove one visible phrase/menu and its reference chain first. Match source bytes,
 
 ## Extract and localize
 
+For migrated projects, use the [shared state workflow](../../../docs/translation-studio.md): read current revisions/context and relevant memory/glossary, then write through the API with compare-and-swap revisions. Human corrections take precedence; record alternatives as proposals and never silently replace them. Preserve opaque controls and private source evidence. Agent text needs technical validation but no mandatory language-approval queue. Freeze a snapshot before building and bind insertion/test evidence to its revisions. Preserve historical language files for exact checkpoint reproduction.
+
+Offer the optional local Studio when browsing/correction would help; agent work and private builds must also function without it. Publish meaningful timestamped activity and independent progress stages through the same APIs, regardless of provider. Never infer decoded text from a partial transcription or gameplay verification from a build approval. Follow the public/private classification for state, issues, screenshots and discoveries. See [agent compatibility](../../../docs/agent-compatibility.md); maintain this canonical workflow and regenerate thin discovery adapters when it changes.
+
 Extract editable records with stable IDs, source offsets/pointers, original bytes, lossless controls, context and translation fields. Keep originals, text and tables private. An unchanged extraction/insertion cycle must reproduce source bytes before bulk translation.
 
 Read [LOCALIZATION.md](../../../LOCALIZATION.md) and the shared contextual glossary, then private project terminology/voice notes. Translate natural English faithfully, preserving Japanese cultural specificity, tone and intentional ambiguity. Unknown meanings remain provisional. Do not distort meaning, truncate or invent context to fit storage/layout. Keep translation decisions separate from insertion code.
@@ -63,6 +67,8 @@ Review actual screenshots at native/documented integer scale. Test selected/unse
 
 ## Build, patch and validate
 
+Studio's **Build test ROM** requires an explicitly launched private `BuildWorker` callback; the generic platform never imports project code or executes browser-provided commands. Capture saved revisions atomically and report real validation stages, fresh output locations and failures. Full builds are supported; do not claim selective modes until implemented and verified. Preserve interrupted outputs and use a new job for retries. Keep checkpoint approval separate from technical success. For screenshot issues, upload private PNG/JPEG evidence, verify record/issue/scene/resource/build links, retain provisional confidence where uncertain, and use association history to correct mistakes. An associated image alone does not certify a translation or gameplay result. Follow the [Studio workflow](../../../docs/translation-studio.md).
+
 Private recipes must assert source hashes, expected bytes, intended changed ranges, pointer constraints and capacities. Prefer programmatic insertion/repointing over manual hex edits. Build from the original plus approved changes and validated new work, never from a rejected derivative.
 
 Recalculate internal checksum/complement using the verified header/mirroring policy. Repeat builds and compare exact ROM and BPS bytes. The shared BPS encoder/verifier supports SourceRead/TargetRead; require reconstruction and wrong-source/corrupt-patch rejection. Independent approved-tool interoperability is a separate pre-distribution check. Never distribute ROMs or untouched extracted assets as public fixtures.
@@ -70,3 +76,14 @@ Recalculate internal checksum/complement using the verified header/mirroring pol
 Cold-boot Snes9x and check edited text, relevant branches, menus/gameplay, names/numbers, transitions, saves and reload after restart. Save states alone do not prove SRAM persistence. Record emulator/version/build and the exact tested scope privately. Check original hardware/FXPAK PRO when available, with region, firmware, timing and save behavior; emulator success is not hardware validation.
 
 Maintain private per-project evidence, progress, known issues, repeatable commands and coverage. Preserve known-good checkpoints and label rejected/unapproved outputs. Never claim a complete translation, full playthrough or hardware compatibility without corresponding tests.
+
+## Shared agent work
+
+For sequential handoffs or concurrent tasks, follow the canonical
+[collaboration skill](../translation-collaboration/SKILL.md). Use `agent-context`
+to discover the selected private project's rules and build interfaces. Read
+memory, glossary and current revisions before claiming/publishing work; protect
+human corrections and preserve source controls. Coordinate shared renderer,
+font or allocation changes with explicit resource ownership as well as record
+scope. Keep findings and handoffs durable in the appropriate public/private
+records, never in a separate provider-specific policy copy.

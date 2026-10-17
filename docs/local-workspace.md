@@ -24,6 +24,9 @@ Keep game evidence in the external project's docs/, data/, tests/, output/ and a
 
 | Information or discovery | Canonical home | Public counterpart |
 |---|---|---|
+| Active translation revisions, human corrections, contextual memory and issues | External private project `.patchquest/` state store | Generic schema/API documentation and invented tests |
+| Immutable translation snapshots and private adapter build reports | External private project snapshots/output/checkpoint records | Snapshot protocol and safe pipeline integration guide |
+| Agent instruction discovery conventions | Canonical public AGENTS.md/skills and thin agent adapters | [Compatibility guide](agent-compatibility.md); installed-client quirks stay local |
 | Emulator executable location/version | Local tools note; supported executable path in local config | Template fields and version-check procedure; fictional ../toolkit/emulator/emulator.exe |
 | Debugger launch settings and game breakpoints | Local environment notes for settings; private project for breakpoints | General debugger workflow without machine values or game addresses |
 | ROM collection path/inventory | External private inventory/project | Immutable-input setup instructions without titles or hashes |
@@ -93,3 +96,24 @@ When verified discoveries affect setup, configuration, debugging or workflows:
 Keep useful superseded records, original backups and known-good checkpoints. Do not delete evidence or Git snapshots to make an audit appear clean. A failed checkpoint reproduction during migration requires stopping and asking the owner. Review backup/export contents because Git ignores do not govern filesystem archives.
 
 This discipline preserves reusable public knowledge and private working context across sessions. It does not authorize new translation scope, downloads, commits or publication.
+
+Studio setup and backup procedures are documented in [Translation Studio](translation-studio.md). Keep the platform registry in `.local/`; the selected project's `.patchquest/` owns translation state. Never copy real databases, snapshots, session URLs or registered images into public examples or reports.
+
+Record a verified private Studio launcher and its build capabilities in the
+project's setup notes; the generic launcher alone does not register a pipeline.
+Keep worker diagnostics, uploaded screenshots, association histories and actual
+artifact locations private. Public examples describe this contract using invented
+data. Do not store per-launch browser tokens in configuration or shared reports.
+
+## Agent coordination knowledge
+
+Canonical collaboration policy lives in `AGENTS.md`, the shared skills and
+[the coordination contract](agent-collaboration.md). Agent session IDs, task
+claims, handoffs, translation memory and build snapshots live in the selected
+private project's `.patchquest/`, not duplicated in each provider's memory.
+Keep installed client versions, login/permission availability (never secrets),
+local runtime probe results and troubleshooting in private environment notes.
+A useful record names the tested version, date, synthetic or private scope,
+verified operations, exact failure category and remaining limits. Do not store
+access tokens or complete provider environment dumps. Promote a reproducible
+general workaround into public documentation with invented paths/data.

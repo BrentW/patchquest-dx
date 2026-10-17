@@ -68,6 +68,25 @@ During migration:
 
 A migration does not alter translation scope or testing approval. Identical ROM bytes establish unchanged behavior, not previously unperformed emulator or hardware tests.
 
+## Translation state contract
+
+[Studio/state](translation-studio.md) extends the existing manifest without
+changing API version 1: `.patchquest/` inside the explicit private project owns
+the SQLite revision store, derived memory, snapshots and evidence copies. It
+must be separate from originals, protected resources and build outputs. Private
+runners import the state API and consume immutable snapshots; the platform
+never imports a private adapter or interprets its game-specific build binding.
+No ROM is needed for state browsing. Versioned records are authoritative for
+new snapshot builds; legacy records remain frozen for old recipe reproduction.
+
 ## Promotion policy
+
+Studio job orchestration follows the same direction: a private launcher imports
+`BuildWorker`, registers its own validated callback and starts the public HTTP UI.
+The browser queues only an advertised build mode; it cannot choose code or paths.
+Jobs freeze current revisions transactionally, serialize builds, report stages
+and preserve failure/interruption evidence. Screenshot bytes and revisioned
+associations remain under the private `.patchquest/` directory. See the canonical
+[Studio guide](translation-studio.md) for the callback contract and recovery.
 
 Classify findings as platform, private project, or both using [the information table](local-workspace.md#information-classification-table). Promote independently generalized algorithms/invariants with synthetic or licensed tests. Keep actual game evidence, parameters, source patterns, scripts, hooks and progress private. Removing titles does not anonymize distinctive code or fixtures. Private notes may link to public techniques; public documents must not point back to real private projects.

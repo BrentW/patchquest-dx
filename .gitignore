@@ -2,6 +2,11 @@
 /untranslated roms/
 # Private working knowledge and machine configuration (never force-add)
 /.local/
+# Private Studio state, backups and snapshots in project checkouts
+.patchquest/
+*.sqlite3
+*.sqlite3-wal
+*.sqlite3-shm
 /projects/
 /private/
 /games/
