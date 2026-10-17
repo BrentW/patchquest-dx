@@ -13,6 +13,15 @@ Before any authorized commit or release:
 
 Use `python tools/patchquest.py audit --history --report .local/logs/review.json` with a fresh private report path. Findings identify locations/categories rather than printing matched secrets; filenames and object IDs are themselves private report data. Scanning is heuristic, does not decode every archive or prove absence of secrets, and never rewrites Git.
 
+Documentation screenshots are a deliberate, reviewed exception to excluding
+generated binaries. Use independently authored synthetic content, inspect every
+image and its metadata, retain public provenance, and include only exact reviewed
+paths/hashes in the export manifest. The auditor still flags PNGs as restricted
+binary content; record the review disposition instead of suppressing that check
+or allowing an entire image directory automatically. Never apply this exception
+to game frames, private evidence, ROM assets or capture logs. See the
+[Studio screenshot provenance](images/studio/README.md) for the current examples.
+
 If the local repository has private objects, a fresh publication checkout made from the reviewed source export is preferable for a later authorized release. Preserve the working repository and its private history separately. Do not create a public commit merely to test this workflow.
 
 The platform has no bundled game ROMs, private translation recipes or guarantee of any game's playability. Public tests establish generic behavior only. Independent BPS interoperability, individual-game emulator checks and hardware validation remain separate project/distribution responsibilities.
