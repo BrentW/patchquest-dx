@@ -55,6 +55,13 @@ async function start(withWorker=true){
   await page.locator('#english').fill('Welcome to the harbor.');await page.getByRole('button',{name:'Save correction',exact:true}).click();
   await page.getByText('Correction saved. Future agents cannot silently replace it.').waitFor();
   let current=cli('get',{key:'greeting'});assert.equal(current.target,'Welcome to the harbor.');assert.equal(current.human_corrected,true);
+  const layoutSnapshot=cli('snapshot').sha256;
+  cli('build-report',{expected:0,data:{id:'browser-layout',status:'validated',snapshot:layoutSnapshot,
+    validation:{layout:{schema:1,counts:{paginated:1},records:{greeting:{revision:current.revision,
+      variants:{'invented-panel':{decision:'paginated',pages:2,lines:2,width_px:72,limit_px:80}}}}}}}});
+  await page.getByRole('button',{name:'Reload record',exact:true}).click();
+  await page.getByText('invented-panel: paginated · 2 page(s) · 2 logical line(s) · 72/80px',{exact:true}).waitFor();
+  await page.getByText(/browser-layout.*matches saved revision/).waitFor();
   await page.route('**/api/edit',async route=>{
     const response=await route.fetch();
     await page.locator('#english').fill('Newer draft typed during save');
@@ -77,6 +84,7 @@ async function start(withWorker=true){
   await conflictResponse;assert.equal(await page.locator('#english').inputValue(),'Local draft stays here');
   page.once('dialog',d=>d.accept());await page.getByRole('button',{name:'Reload record',exact:true}).click();
   await page.waitForFunction(()=>document.getElementById('english')?.value==='Other human correction');
+  await page.getByText(/browser-layout.*stale — rebuild after correction/).waitFor();
   await page.getByText('Revision history',{exact:true}).click();await page.getByRole('button',{name:'Restore this revision',exact:true}).last().click();
   await page.getByText('Restored as a new protected revision; history retained.').waitFor();assert.equal(cli('get',{key:'greeting'}).target,'Hello.');
   await page.locator('#query').fill('あかり');await page.waitForFunction(()=>document.getElementById('result-count').textContent==='1–1 of 1');
@@ -144,5 +152,5 @@ async function start(withWorker=true){
   await page.setViewportSize({width:500,height:900});assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),true);
   assert.deepEqual(errors,[]);await page.close();await browser.close();browser=null;server.kill();server=null;
   const restarted=await start(false);assert.match(restarted,/^http:/);assert.equal(cli('get',{key:'greeting'}).target,payload.target);
-  console.log(JSON.stringify({status:'passed',checks:['edit','human precedence','cross-process conflict','draft retained','typing during save','restore','Japanese search','glossary correction','issue','live activity','snapshot','private image','browser build','immutable job input','failure and fresh retry','issue screenshot upload','association correction and history','invalid image rejection','XSS text','mobile width','agent queue and progress','handoff history','session closure','restart'],browser:'installed browser via Playwright'}));
+  console.log(JSON.stringify({status:'passed',checks:['edit','human precedence','cross-process conflict','draft retained','typing during save','restore','Japanese search','glossary correction','issue','live activity','snapshot','private image','browser build','immutable job input','failure and fresh retry','issue screenshot upload','association correction and history','invalid image rejection','XSS text','mobile width','agent queue and progress','handoff history','session closure','restart','layout decisions','stale layout revision'],browser:'installed browser via Playwright'}));
 })().catch(async e=>{console.error(e);if(activePage&&!activePage.isClosed()){console.error(await activePage.locator('#notice').textContent());console.error(await activePage.locator('#issue-detail').innerText());console.error(await activePage.locator('#english').inputValue().catch(()=>''));}process.exitCode=1;}).finally(async()=>{if(browser)await browser.close();if(server)server.kill();/* Keep temporary synthetic artifacts for diagnosis; OS temp cleanup may remove them. */});

@@ -1,5 +1,11 @@
 # Local Translation Studio
 
+Layout-aware private builds can expose [dialogue layout decisions](dialogue-layout.md)
+in record details and build summaries. Reports identify the saved revision and
+window context; older revisions are marked stale. They are static build evidence,
+not live draft previews or emulator approval. Unsupported overflow fails the
+private build while retaining the correction and frozen inputs.
+
 Studio is an optional, locally hosted browser UI for the same state API agents
 use from Python or JSON commands. Ordinary browsing, editing, history, memory,
 issues and progress do not require an AI agent. No provider API is called.

@@ -1,5 +1,10 @@
 # Reusable compact English typography
 
+For capability-gated dialogue flow, pixel overflow thresholds, safe scrolling and
+pagination, see [Intelligent dialogue layout](docs/dialogue-layout.md). The planner
+preserves saved text and produces revision-bound build artifacts. Private adapters
+verify geometry, controls, timing and resources before encoding those plans.
+
 Permanent architectural goal, adopted 2026-10-16 for current and future NES/SNES translations: a compact, readable English font with variable character advances and intelligent pixel-based text-block layout. Language fidelity in LOCALIZATION.md and the visual quality standard in AGENTS.md remain mandatory. Avoid repeatedly expanding individual windows merely because the font is unnecessarily wide.
 
 ## Artwork and profiles

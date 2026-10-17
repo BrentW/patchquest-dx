@@ -70,7 +70,7 @@ async function selectRecord(key, force = false) {
   const memory=el('details');memory.open=true;memory.append(el('summary','Translation memory & related terminology'));panel.append(memory);
   const alternatives=el('details');alternatives.append(el('summary','Agent proposals'));panel.append(alternatives);
   const revisions=el('details');revisions.append(el('summary','Revision history'));panel.append(revisions);
-  const [suggestions,proposals,historyRows,evidence]=await Promise.all([api('memory',{key}),api('proposals',{key}),api('history',{key}),api('evidence-list',{key})]);
+  const [suggestions,proposals,historyRows,evidence,layouts]=await Promise.all([api('memory',{key}),api('proposals',{key}),api('history',{key}),api('evidence-list',{key}),api('layout-reports',{key})]);
   if(request!==detailSequence)return;
   if(!suggestions.length)memory.append(el('p','No related translations yet.','muted'));
   for(const s of suggestions){const card=el('div',undefined,'card');card.append(el('div',`${s.id} · r${s.revision} · ${s.current?'current':'historical'}${s.human_corrected?' · human corrected':''}`,'meta'),el('p',s.source),el('p',s.target),el('div',[s.scene,s.speaker,s.uncertainty].filter(Boolean).join(' · '),'meta'),action('Use as draft',()=>{english.value=s.target;dirty=true;draftEpoch++;notice('Draft copied. Review this context and controls before saving.');}));memory.append(card);}
@@ -78,6 +78,10 @@ async function selectRecord(key, force = false) {
   for(const s of proposals){const card=el('div',undefined,'card');card.append(el('p',s.payload.target),el('div',`${s.actor} · based on revision ${s.base}`,'meta'),action('Use as draft',()=>{english.value=s.payload.target;dirty=true;draftEpoch++;}));alternatives.append(card);}
   for(const h of historyRows){const card=el('div',undefined,'card');card.append(el('div',`Revision ${h.revision} · ${h.role} · ${new Date(h.created).toLocaleString()}`,'meta'),el('p',h.payload.target),el('p',h.reason,'meta'));if(h.revision!==r.revision)card.append(action('Restore this revision',async()=>{if(!canLeave())return;await api('restore',{key,revision:h.revision,expected:r.revision},true);dirty=false;await selectRecord(key,true);await listing();notice('Restored as a new protected revision; history retained.');}));revisions.append(card);}
   panel.append(detail('Technical and runtime evidence (per revision)',evidence));
+  const layoutBox=el('details');layoutBox.open=true;layoutBox.append(el('summary','Dialogue layout'));
+  if(!layouts.length)layoutBox.append(el('p','No revision-bound layout report yet. Build with a layout-aware private adapter to validate saved text.','muted'));
+  for(const report of layouts){const card=el('div',undefined,'card');card.append(el('div',`${report.build_id} · r${report.revision} · ${report.current?'matches saved revision':'stale — rebuild after correction'}`,'meta'),el('p',report.verification));for(const [context,v] of Object.entries(report.variants)){card.append(el('p',`${context}: ${v.decision} · ${v.pages} page(s) · ${v.lines} logical line(s) · ${v.width_px}/${v.limit_px}px`));}layoutBox.append(card);}
+  layoutBox.append(el('p','Reports describe saved build inputs, not an unsaved draft. Each window context is validated separately.','muted'));panel.append(layoutBox);
   const screenshots=el('details');screenshots.append(el('summary','Associated screenshots'));const images=el('div',undefined,'gallery');screenshots.append(images);panel.append(screenshots);await gallery(images,key);
 }
 async function showIssues(){const rows=await api('issues');$('issues').replaceChildren();for(const r of rows){const card=el('div',undefined,'card');card.append(el('h3',r.title),el('div',`${r.status} · ${r.category} · revision ${r.revision}`,'meta'),el('p',r.description),el('div',r.record_ids.join(', '),'meta'),action('Edit / history',()=>editIssue(r)));$('issues').append(card);}}
@@ -101,7 +105,7 @@ async function showBuilds(){
     $('jobs').append(card);
   }
   const rows=await api('builds');$('builds').replaceChildren();
-  for(const r of rows){const card=el('div',undefined,'card');card.append(el('h3',r.id),el('div',`${r.status} · ${r.approval?.approved?'user-approved checkpoint':'not an approved checkpoint'}`,'meta'),el('p',r.summary||''),detail('Validation, snapshot and file locations',r));$('builds').append(card);}
+  for(const r of rows){const card=el('div',undefined,'card');card.append(el('h3',r.id),el('div',`${r.status} · ${r.approval?.approved?'user-approved checkpoint':'not an approved checkpoint'}`,'meta'),el('p',r.summary||''));if(r.validation?.layout)card.append(detail('Static layout decisions — emulator review separate',r.validation.layout.counts));card.append(detail('Validation, snapshot and file locations',r));$('builds').append(card);}
   if(!rows.length)$('builds').append(el('p','No build reports yet.','muted'));
   if(!$('upload-screenshot').childElementCount)screenshotForm($('upload-screenshot'),null,{},()=>gallery($('screenshots')));
   await gallery($('screenshots'));const events=await api('events',{after:Math.max(0,cursor-60),limit:100});$('events').replaceChildren();for(const e of events.reverse())$('events').append(el('pre',`${new Date(e.created).toLocaleString()} · ${e.kind}\n${JSON.stringify(e.payload)}`));

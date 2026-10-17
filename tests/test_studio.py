@@ -68,6 +68,28 @@ class StudioTests(unittest.TestCase):
         self.assertEqual(self.request('/api/get?key=line-01&key=other')[0],400)
         self.assertEqual(self.request('/api/list?offset=oops')[0],400)
 
+    def test_layout_report_matches_frozen_revision_and_retains_human_correction(self):
+        self.request('/api/edit',{'key':'line-01','expected':1,'target':'A carefully corrected sentence.'})
+        frozen=self.store.snapshot()['sha256']
+        report={'id':'synthetic-layout','status':'validated','snapshot':frozen,
+                'validation':{'layout':{'schema':1,'counts':{'paginated':1},'records':{
+                    'line-01':{'revision':2,'variants':{'invented-small-panel':{
+                        'decision':'paginated','pages':2,'lines':2,'width_px':72,'limit_px':80}}}}}}}
+        self.store.build(report,0)
+        status,body,_=self.request('/api/layout-reports?key=line-01')
+        rows=json.loads(body)
+        self.assertEqual(status,200);self.assertTrue(rows[0]['current'])
+        self.assertEqual(rows[0]['variants']['invented-small-panel']['decision'],'paginated')
+        self.assertEqual(self.request('/api/layout-reports?key=line-01',authorized=False)[0],401)
+        self.request('/api/edit',{'key':'line-01','expected':2,'target':'A newer human correction.'})
+        rows=json.loads(self.request('/api/layout-reports?key=line-01')[1])
+        self.assertFalse(rows[0]['current'])
+        self.assertEqual(self.store.get('line-01')['target'],'A newer human correction.')
+        self.assertTrue(self.store.get('line-01')['human_corrected'])
+        report['validation']['layout']['records']['line-01']['revision']=3
+        self.store.build(report,1)
+        self.assertEqual(json.loads(self.request('/api/layout-reports?key=line-01')[1]),[])
+
     def test_agent_read_views_require_token(self):
         for action in ('agent-context','agent-sessions','work-list'):
             self.assertEqual(self.request('/api/'+action,authorized=False)[0],401)

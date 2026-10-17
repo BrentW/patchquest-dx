@@ -61,6 +61,15 @@ Use compact 8–12 pixel profiles, variable advances and whole-block layout wher
 
 Shared host-side layout supports wrapping, alignment, resolved substitutions and retained opaque controls; it does not implement game bytecode or runtime rendering. Keep page/wait/animation semantics in private adapters. Precomposed proportional tiles are a useful bounded strategy, but are not true runtime VWF.
 
+For intelligent dialogue flow, follow [the layout-planning contract](../../../docs/dialogue-layout.md).
+Use pixel thresholds and per-caller policies; preserve fitting layouts and saved
+wording. Verify native scrolling independently of newline acceptance and prefer
+it over resizing/pagination when available. Otherwise use verified line capacity
+or wait/clear pagination. Do not add waits to timed/nonblocking text without a
+validated policy. Restrict menu/HUD behavior, block unresolved overflow before
+ROM output, and bind Studio summaries to frozen revisions. Plans are not edits
+to human corrections or claims of emulator verification.
+
 Before renderer/allocation changes, trace all callers and consumers, and budget ROM/banks, WRAM, VRAM, tile indices, DMA/VBlank, CPU/stack, buffer lifetimes and fallback paths. Account for cursors, highlights, scrolling, dynamic values and background restoration.
 
 Review actual screenshots at native/documented integer scale. Test selected/unselected states, longest labels, largest valid values, empty/populated fields, scrolling, transitions and animation. Confirm navigation and selection behavior. Static specimens alone cannot approve a finished interface. Keep design approval, automated traces and runtime evidence distinct.

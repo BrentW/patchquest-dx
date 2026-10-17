@@ -89,6 +89,16 @@ Do not truncate text, distort translations, or allow overlap with borders merely
 
 ### In-game validation and preservation
 
+For dialogue overflow, use the [capability-gated layout workflow](docs/dialogue-layout.md).
+Preserve saved wording and human corrections; generate revision-bound plans as
+build artifacts. Measure both axes in pixels, preserve fitting layouts, and use
+verified minimal adjustments, wrapping, native scrolling, safe alternate geometry
+or pagination according to context. Never infer scrolling from newline support.
+Verify input and termination, preserve timed/nonblocking behavior, and restrict
+menus/HUDs to their own capabilities. Unresolved overflow must fail before a build
+is presented as valid. Keep profiles/hooks/evidence private and expose static
+layout decisions separately from emulator approval in Studio.
+
 For menu/interface work, review actual game screenshots whenever available, at native scale or a documented integer scale. Check highlighted and unhighlighted states, the longest labels and largest valid dynamic values, empty/populated slots, cursor positions, scrolling, transitions and text animations. Verify navigation, selection and other UI functions after visual changes. Use before/after screenshot comparisons and measurable text bounds where possible; record unknown value limits and untested states honestly.
 
 Static font specimens alone cannot approve a finished interface. Appearance approval, bounded automated checks and in-game verification are separate evidence. Preserve original ROMs, working translations and known-good builds for regression comparison. Apply changes in reproducible derivatives with the existing checksum, BPS, ownership and behavior checks; a visual improvement must not reintroduce a working-state bug.
