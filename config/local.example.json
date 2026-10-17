@@ -1,0 +1,9 @@
+{
+  "schema_version": 2,
+  "projects": {},
+  "emulators": {
+    "snes9x": null,
+    "mesen": null
+  },
+  "privacy_terms": []
+}

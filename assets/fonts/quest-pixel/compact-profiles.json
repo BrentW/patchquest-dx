@@ -1,0 +1,13 @@
+{
+  "schema": "quest-pixel-metrics-v1",
+  "source": "glyphs.json",
+  "source_sha256": "e4d9b7b472c39e5d11eba154b5944008bca9a774c32256ab5b6864e09864f735",
+  "status": "Prototype metrics; original artwork unchanged; game appearance pending",
+  "profiles": {
+    "compact-ui": {"height": 8, "baseline": 6, "line_step": 12, "gap": 1, "space": 4, "scale": 1},
+    "dialogue": {"height": 10, "baseline": 7, "line_step": 12, "gap": 1, "space": 4, "scale": 1},
+    "compact-fixed": {"height": 8, "baseline": 6, "line_step": 12, "fixed_advance": 8, "scale": 1},
+    "legacy-double": {"height": 16, "baseline": 13, "line_step": 16, "fixed_advance": 16, "scale": 2}
+  },
+  "note": "Dialogue uses native artwork with one pixel above/below, not rescaled 10px ink. A hand-redrawn 9-11px alphabet remains a possible later design study. Profiles never replace the approved source."
+}

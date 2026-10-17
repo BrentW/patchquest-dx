@@ -1,0 +1,59 @@
+# Original inputs, regardless of extensions
+/untranslated roms/
+# Private working knowledge and machine configuration (never force-add)
+/.local/
+/projects/
+/private/
+/games/
+/notes/
+.env
+.env.*
+!.env.example
+*.local.json
+*.local.toml
+*.local.ini
+# Credentials belong in an external credential store
+*.pem
+*.key
+*.p12
+*.pfx
+# Generated patches and diagnostic dumps need separate release review
+*.[bB][pP][sS]
+*.[iI][pP][sS]
+*.[uU][pP][sS]
+*.dmp
+*.dump
+*.log
+*.tmp
+*.bak
+# Archives can conceal ROMs/private workspaces; executables stay installed locally
+*.[zZ][iI][pP]
+*.[7][zZ]
+*.[rR][aA][rR]
+*.[eE][xX][eE]
+*.[dD][lL][lL]
+# Generated content stays private locally; keep the directory in Git
+/output/*
+!/output/.gitkeep
+# ROMs anywhere, including uppercase extensions
+*.[sS][fF][cC]
+*.[nN][eE][sS]
+*.[sS][mM][cC]
+*.[rR][oO][mM]
+*.[bB][iI][nN]
+*.[fF][iI][gG]
+*.[sS][wW][cC]
+# Saves and emulator state
+*.[sS][rR][mM]
+*.[sS][aA][vV]
+*.[sS][tT][aA][tT][eE]*
+*.[sS][tT][aA]
+*.0[0-9][0-9]
+*.[fF][rR][zZ]
+*.[sS][9][xX]
+*.[sS][pP][cC]
+*.oops
+*.rtc
+__pycache__/
+*.py[cod]
+.venv/

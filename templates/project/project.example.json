@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "platform_api": 1,
+  "project_id": "private-project",
+  "source": {
+    "path": "roms/source.sfc",
+    "sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+  },
+  "resources": {"recipe": "data/recipe.json"},
+  "output_directory": "output",
+  "data": {}
+}

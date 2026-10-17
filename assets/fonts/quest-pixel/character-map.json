@@ -1,0 +1,1682 @@
+{
+  "font": "Quest Pixel",
+  "revision": "review-001",
+  "id_policy": "Unicode asset identifiers; no ROM token or allocation is assigned.",
+  "glyphs": [
+    {
+      "unicode": "U+0020",
+      "character": " ",
+      "asset_index": 0,
+      "bounds_exclusive": null,
+      "advance_native": 8,
+      "advance_proportional_study": 8,
+      "rom_token": null,
+      "advance_fixed_16": 16
+    },
+    {
+      "unicode": "U+0021",
+      "character": "!",
+      "asset_index": 1,
+      "bounds_exclusive": [
+        2,
+        0,
+        4,
+        7
+      ],
+      "advance_native": 8,
+      "advance_proportional_study": 6,
+      "rom_token": null,
+      "advance_fixed_16": 16
+    },
+    {
+      "unicode": "U+0022",
+      "character": "\"",
+      "asset_index": 2,
+      "bounds_exclusive": [
+        1,
+        0,
+        6,
+        3
+      ],
+      "advance_native": 8,
+      "advance_proportional_study": 12,
+      "rom_token": null,
+      "advance_fixed_16": 16
+    },
+    {
+      "unicode": "U+0023",
+      "character": "#",
+      "asset_index": 3,
+      "bounds_exclusive": [
+        0,
+        0,
+        7,
+        6
+      ],
+      "advance_native": 8,
+      "advance_proportional_study": 16,
+      "rom_token": null,
+      "advance_fixed_16": 16
+    },
+    {
+      "unicode": "U+0024",
+      "character": "$",
+      "asset_index": 4,
+      "bounds_exclusive": [
+        0,
+        0,
+        7,
+        7
+      ],
+      "advance_native": 8,
+      "advance_proportional_study": 16,
+      "rom_token": null,
+      "advance_fixed_16": 16
+    },
+    {
+      "unicode": "U+0025",
+      "character": "%",
+      "asset_index": 5,
+      "bounds_exclusive": [
+        0,
+        0,
+        7,
+        6
+      ],
+      "advance_native": 8,
+      "advance_proportional_study": 16,
+      "rom_token": null,
+      "advance_fixed_16": 16
+    },
+    {
+      "unicode": "U+0026",
+      "character": "&",
+      "asset_index": 6,
+      "bounds_exclusive": [
+        0,
+        0,
+        7,
+        7
+      ],
+      "advance_native": 8,
+      "advance_proportional_study": 16,
+      "rom_token": null,
+      "advance_fixed_16": 16
+    },
+    {
+      "unicode": "U+0027",
+      "character": "'",
+      "asset_index": 7,
+      "bounds_exclusive": [
+        1,
+        0,
+        4,
+        3
+      ],
+      "advance_native": 8,
+      "advance_proportional_study": 8,
+      "rom_token": null,
+      "advance_fixed_16": 16
+    },
+    {
+      "unicode": "U+0028",
+      "character": "(",
+      "asset_index": 8,
+      "bounds_exclusive": [
+        1,
+        0,
+        5,
+        7
+      ],
+      "advance_native": 8,
+      "advance_proportional_study": 10,
+      "rom_token": null,
+      "advance_fixed_16": 16
+    },
+    {
+      "unicode": "U+0029",
+      "character": ")",
+      "asset_index": 9,
+      "bounds_exclusive": [
+        1,
+        0,
+        5,
+        7
+      ],
+      "advance_native": 8,
+      "advance_proportional_study": 10,
+      "rom_token": null,
+      "advance_fixed_16": 16
+    },
+    {
+      "unicode": "U+002A",
+      "character": "*",
+      "asset_index": 10,
+      "bounds_exclusive": [
+        0,
+        1,
+        7,
+        7
+      ],
+      "advance_native": 8,
+      "advance_proportional_study": 16,
+      "rom_token": null,
+      "advance_fixed_16": 16
+    },
+    {
+      "unicode": "U+002B",
+      "character": "+",
+      "asset_index": 11,
+      "bounds_exclusive": [
+        0,
+        1,
+        6,
+        6
+      ],
+      "advance_native": 8,
+      "advance_proportional_study": 14,
+      "rom_token": null,
+      "advance_fixed_16": 16
+    },
+    {
+      "unicode": "U+002C",
+      "character": ",",
+      "asset_index": 12,
+      "bounds_exclusive": [
+        1,
+        5,
+        4,
+        8
+      ],
+      "advance_native": 8,
+      "advance_proportional_study": 8,
+      "rom_token": null,
+      "advance_fixed_16": 16
+    },
+    {
+      "unicode": "U+002D",
+      "character": "-",
+      "asset_index": 13,
+      "bounds_exclusive": [
+        1,
+        3,
+        5,
+        4
+      ],
+      "advance_native": 8,
+      "advance_proportional_study": 10,
+      "rom_token": null,
+      "advance_fixed_16": 16
+    },
+    {
+      "unicode": "U+002E",
+      "character": ".",
+      "asset_index": 14,
+      "bounds_exclusive": [
+        2,
+        5,
+        4,
+        7
+      ],
+      "advance_native": 8,
+      "advance_proportional_study": 6,
+      "rom_token": null,
+      "advance_fixed_16": 16
+    },
+    {
+      "unicode": "U+002F",
+      "character": "/",
+      "asset_index": 15,
+      "bounds_exclusive": [
+        0,
+        0,
+        7,
+        7
+      ],
+      "advance_native": 8,
+      "advance_proportional_study": 16,
+      "rom_token": null,
+      "advance_fixed_16": 16
+    },
+    {
+      "unicode": "U+0030",
+      "character": "0",
+      "asset_index": 16,
+      "bounds_exclusive": [
+        0,
+        0,
+        6,
+        7
+      ],
+      "advance_native": 8,
+      "advance_proportional_study": 14,
+      "rom_token": null,
+      "advance_fixed_16": 16
+    },
+    {
+      "unicode": "U+0031",
+      "character": "1",
+      "asset_index": 17,
+      "bounds_exclusive": [
+        1,
+        0,
+        5,
+        7
+      ],
+      "advance_native": 8,
+      "advance_proportional_study": 10,
+      "rom_token": null,
+      "advance_fixed_16": 16
+    },
+    {
+      "unicode": "U+0032",
+      "character": "2",
+      "asset_index": 18,
+      "bounds_exclusive": [
+        0,
+        0,
+        6,
+        7
+      ],
+      "advance_native": 8,
+      "advance_proportional_study": 14,
+      "rom_token": null,
+      "advance_fixed_16": 16
+    },
+    {
+      "unicode": "U+0033",
+      "character": "3",
+      "asset_index": 19,
+      "bounds_exclusive": [
+        0,
+        0,
+        6,
+        7
+      ],
+      "advance_native": 8,
+      "advance_proportional_study": 14,
+      "rom_token": null,
+      "advance_fixed_16": 16
+    },
+    {
+      "unicode": "U+0034",
+      "character": "4",
+      "asset_index": 20,
+      "bounds_exclusive": [
+        0,
+        0,
+        6,
+        7
+      ],
+      "advance_native": 8,
+      "advance_proportional_study": 14,
+      "rom_token": null,
+      "advance_fixed_16": 16
+    },
+    {
+      "unicode": "U+0035",
+      "character": "5",
+      "asset_index": 21,
+      "bounds_exclusive": [
+        0,
+        0,
+        6,
+        7
+      ],
+      "advance_native": 8,
+      "advance_proportional_study": 14,
+      "rom_token": null,
+      "advance_fixed_16": 16
+    },
+    {
+      "unicode": "U+0036",
+      "character": "6",
+      "asset_index": 22,
+      "bounds_exclusive": [
+        0,
+        0,
+        6,
+        7
+      ],
+      "advance_native": 8,
+      "advance_proportional_study": 14,
+      "rom_token": null,
+      "advance_fixed_16": 16
+    },
+    {
+      "unicode": "U+0037",
+      "character": "7",
+      "asset_index": 23,
+      "bounds_exclusive": [
+        0,
+        0,
+        6,
+        7
+      ],
+      "advance_native": 8,
+      "advance_proportional_study": 14,
+      "rom_token": null,
+      "advance_fixed_16": 16
+    },
+    {
+      "unicode": "U+0038",
+      "character": "8",
+      "asset_index": 24,
+      "bounds_exclusive": [
+        0,
+        0,
+        6,
+        7
+      ],
+      "advance_native": 8,
+      "advance_proportional_study": 14,
+      "rom_token": null,
+      "advance_fixed_16": 16
+    },
+    {
+      "unicode": "U+0039",
+      "character": "9",
+      "asset_index": 25,
+      "bounds_exclusive": [
+        0,
+        0,
+        6,
+        7
+      ],
+      "advance_native": 8,
+      "advance_proportional_study": 14,
+      "rom_token": null,
+      "advance_fixed_16": 16
+    },
+    {
+      "unicode": "U+003A",
+      "character": ":",
+      "asset_index": 26,
+      "bounds_exclusive": [
+        2,
+        1,
+        4,
+        6
+      ],
+      "advance_native": 8,
+      "advance_proportional_study": 6,
+      "rom_token": null,
+      "advance_fixed_16": 16
+    },
+    {
+      "unicode": "U+003B",
+      "character": ";",
+      "asset_index": 27,
+      "bounds_exclusive": [
+        1,
+        1,
+        4,
+        7
+      ],
+      "advance_native": 8,
+      "advance_proportional_study": 8,
+      "rom_token": null,
+      "advance_fixed_16": 16
+    },
+    {
+      "unicode": "U+003C",
+      "character": "<",
+      "asset_index": 28,
+      "bounds_exclusive": [
+        1,
+        0,
+        6,
+        7
+      ],
+      "advance_native": 8,
+      "advance_proportional_study": 12,
+      "rom_token": null,
+      "advance_fixed_16": 16
+    },
+    {
+      "unicode": "U+003D",
+      "character": "=",
+      "asset_index": 29,
+      "bounds_exclusive": [
+        0,
+        2,
+        6,
+        5
+      ],
+      "advance_native": 8,
+      "advance_proportional_study": 14,
+      "rom_token": null,
+      "advance_fixed_16": 16
+    },
+    {
+      "unicode": "U+003E",
+      "character": ">",
+      "asset_index": 30,
+      "bounds_exclusive": [
+        1,
+        0,
+        6,
+        7
+      ],
+      "advance_native": 8,
+      "advance_proportional_study": 12,
+      "rom_token": null,
+      "advance_fixed_16": 16
+    },
+    {
+      "unicode": "U+003F",
+      "character": "?",
+      "asset_index": 31,
+      "bounds_exclusive": [
+        0,
+        0,
+        6,
+        7
+      ],
+      "advance_native": 8,
+      "advance_proportional_study": 14,
+      "rom_token": null,
+      "advance_fixed_16": 16
+    },
+    {
+      "unicode": "U+0040",
+      "character": "@",
+      "asset_index": 32,
+      "bounds_exclusive": [
+        0,
+        0,
+        7,
+        7
+      ],
+      "advance_native": 8,
+      "advance_proportional_study": 16,
+      "rom_token": null,
+      "advance_fixed_16": 16
+    },
+    {
+      "unicode": "U+0041",
+      "character": "A",
+      "asset_index": 33,
+      "bounds_exclusive": [
+        0,
+        0,
+        6,
+        7
+      ],
+      "advance_native": 8,
+      "advance_proportional_study": 14,
+      "rom_token": null,
+      "advance_fixed_16": 16
+    },
+    {
+      "unicode": "U+0042",
+      "character": "B",
+      "asset_index": 34,
+      "bounds_exclusive": [
+        0,
+        0,
+        6,
+        7
+      ],
+      "advance_native": 8,
+      "advance_proportional_study": 14,
+      "rom_token": null,
+      "advance_fixed_16": 16
+    },
+    {
+      "unicode": "U+0043",
+      "character": "C",
+      "asset_index": 35,
+      "bounds_exclusive": [
+        0,
+        0,
+        6,
+        7
+      ],
+      "advance_native": 8,
+      "advance_proportional_study": 14,
+      "rom_token": null,
+      "advance_fixed_16": 16
+    },
+    {
+      "unicode": "U+0044",
+      "character": "D",
+      "asset_index": 36,
+      "bounds_exclusive": [
+        0,
+        0,
+        6,
+        7
+      ],
+      "advance_native": 8,
+      "advance_proportional_study": 14,
+      "rom_token": null,
+      "advance_fixed_16": 16
+    },
+    {
+      "unicode": "U+0045",
+      "character": "E",
+      "asset_index": 37,
+      "bounds_exclusive": [
+        0,
+        0,
+        6,
+        7
+      ],
+      "advance_native": 8,
+      "advance_proportional_study": 14,
+      "rom_token": null,
+      "advance_fixed_16": 16
+    },
+    {
+      "unicode": "U+0046",
+      "character": "F",
+      "asset_index": 38,
+      "bounds_exclusive": [
+        0,
+        0,
+        6,
+        7
+      ],
+      "advance_native": 8,
+      "advance_proportional_study": 14,
+      "rom_token": null,
+      "advance_fixed_16": 16
+    },
+    {
+      "unicode": "U+0047",
+      "character": "G",
+      "asset_index": 39,
+      "bounds_exclusive": [
+        0,
+        0,
+        6,
+        7
+      ],
+      "advance_native": 8,
+      "advance_proportional_study": 14,
+      "rom_token": null,
+      "advance_fixed_16": 16
+    },
+    {
+      "unicode": "U+0048",
+      "character": "H",
+      "asset_index": 40,
+      "bounds_exclusive": [
+        0,
+        0,
+        6,
+        7
+      ],
+      "advance_native": 8,
+      "advance_proportional_study": 14,
+      "rom_token": null,
+      "advance_fixed_16": 16
+    },
+    {
+      "unicode": "U+0049",
+      "character": "I",
+      "asset_index": 41,
+      "bounds_exclusive": [
+        1,
+        0,
+        5,
+        7
+      ],
+      "advance_native": 8,
+      "advance_proportional_study": 10,
+      "rom_token": null,
+      "advance_fixed_16": 16
+    },
+    {
+      "unicode": "U+004A",
+      "character": "J",
+      "asset_index": 42,
+      "bounds_exclusive": [
+        0,
+        0,
+        6,
+        7
+      ],
+      "advance_native": 8,
+      "advance_proportional_study": 14,
+      "rom_token": null,
+      "advance_fixed_16": 16
+    },
+    {
+      "unicode": "U+004B",
+      "character": "K",
+      "asset_index": 43,
+      "bounds_exclusive": [
+        0,
+        0,
+        6,
+        7
+      ],
+      "advance_native": 8,
+      "advance_proportional_study": 14,
+      "rom_token": null,
+      "advance_fixed_16": 16
+    },
+    {
+      "unicode": "U+004C",
+      "character": "L",
+      "asset_index": 44,
+      "bounds_exclusive": [
+        0,
+        0,
+        6,
+        7
+      ],
+      "advance_native": 8,
+      "advance_proportional_study": 14,
+      "rom_token": null,
+      "advance_fixed_16": 16
+    },
+    {
+      "unicode": "U+004D",
+      "character": "M",
+      "asset_index": 45,
+      "bounds_exclusive": [
+        0,
+        0,
+        7,
+        7
+      ],
+      "advance_native": 8,
+      "advance_proportional_study": 16,
+      "rom_token": null,
+      "advance_fixed_16": 16
+    },
+    {
+      "unicode": "U+004E",
+      "character": "N",
+      "asset_index": 46,
+      "bounds_exclusive": [
+        0,
+        0,
+        6,
+        7
+      ],
+      "advance_native": 8,
+      "advance_proportional_study": 14,
+      "rom_token": null,
+      "advance_fixed_16": 16
+    },
+    {
+      "unicode": "U+004F",
+      "character": "O",
+      "asset_index": 47,
+      "bounds_exclusive": [
+        0,
+        0,
+        6,
+        7
+      ],
+      "advance_native": 8,
+      "advance_proportional_study": 14,
+      "rom_token": null,
+      "advance_fixed_16": 16
+    },
+    {
+      "unicode": "U+0050",
+      "character": "P",
+      "asset_index": 48,
+      "bounds_exclusive": [
+        0,
+        0,
+        6,
+        7
+      ],
+      "advance_native": 8,
+      "advance_proportional_study": 14,
+      "rom_token": null,
+      "advance_fixed_16": 16
+    },
+    {
+      "unicode": "U+0051",
+      "character": "Q",
+      "asset_index": 49,
+      "bounds_exclusive": [
+        0,
+        0,
+        7,
+        8
+      ],
+      "advance_native": 8,
+      "advance_proportional_study": 16,
+      "rom_token": null,
+      "advance_fixed_16": 16
+    },
+    {
+      "unicode": "U+0052",
+      "character": "R",
+      "asset_index": 50,
+      "bounds_exclusive": [
+        0,
+        0,
+        6,
+        7
+      ],
+      "advance_native": 8,
+      "advance_proportional_study": 14,
+      "rom_token": null,
+      "advance_fixed_16": 16
+    },
+    {
+      "unicode": "U+0053",
+      "character": "S",
+      "asset_index": 51,
+      "bounds_exclusive": [
+        0,
+        0,
+        6,
+        7
+      ],
+      "advance_native": 8,
+      "advance_proportional_study": 14,
+      "rom_token": null,
+      "advance_fixed_16": 16
+    },
+    {
+      "unicode": "U+0054",
+      "character": "T",
+      "asset_index": 52,
+      "bounds_exclusive": [
+        0,
+        0,
+        6,
+        7
+      ],
+      "advance_native": 8,
+      "advance_proportional_study": 14,
+      "rom_token": null,
+      "advance_fixed_16": 16
+    },
+    {
+      "unicode": "U+0055",
+      "character": "U",
+      "asset_index": 53,
+      "bounds_exclusive": [
+        0,
+        0,
+        6,
+        7
+      ],
+      "advance_native": 8,
+      "advance_proportional_study": 14,
+      "rom_token": null,
+      "advance_fixed_16": 16
+    },
+    {
+      "unicode": "U+0056",
+      "character": "V",
+      "asset_index": 54,
+      "bounds_exclusive": [
+        0,
+        0,
+        6,
+        7
+      ],
+      "advance_native": 8,
+      "advance_proportional_study": 14,
+      "rom_token": null,
+      "advance_fixed_16": 16
+    },
+    {
+      "unicode": "U+0057",
+      "character": "W",
+      "asset_index": 55,
+      "bounds_exclusive": [
+        0,
+        0,
+        7,
+        7
+      ],
+      "advance_native": 8,
+      "advance_proportional_study": 16,
+      "rom_token": null,
+      "advance_fixed_16": 16
+    },
+    {
+      "unicode": "U+0058",
+      "character": "X",
+      "asset_index": 56,
+      "bounds_exclusive": [
+        0,
+        0,
+        6,
+        7
+      ],
+      "advance_native": 8,
+      "advance_proportional_study": 14,
+      "rom_token": null,
+      "advance_fixed_16": 16
+    },
+    {
+      "unicode": "U+0059",
+      "character": "Y",
+      "asset_index": 57,
+      "bounds_exclusive": [
+        0,
+        0,
+        6,
+        7
+      ],
+      "advance_native": 8,
+      "advance_proportional_study": 14,
+      "rom_token": null,
+      "advance_fixed_16": 16
+    },
+    {
+      "unicode": "U+005A",
+      "character": "Z",
+      "asset_index": 58,
+      "bounds_exclusive": [
+        0,
+        0,
+        6,
+        7
+      ],
+      "advance_native": 8,
+      "advance_proportional_study": 14,
+      "rom_token": null,
+      "advance_fixed_16": 16
+    },
+    {
+      "unicode": "U+005B",
+      "character": "[",
+      "asset_index": 59,
+      "bounds_exclusive": [
+        1,
+        0,
+        5,
+        7
+      ],
+      "advance_native": 8,
+      "advance_proportional_study": 10,
+      "rom_token": null,
+      "advance_fixed_16": 16
+    },
+    {
+      "unicode": "U+005C",
+      "character": "\\",
+      "asset_index": 60,
+      "bounds_exclusive": [
+        0,
+        0,
+        7,
+        7
+      ],
+      "advance_native": 8,
+      "advance_proportional_study": 16,
+      "rom_token": null,
+      "advance_fixed_16": 16
+    },
+    {
+      "unicode": "U+005D",
+      "character": "]",
+      "asset_index": 61,
+      "bounds_exclusive": [
+        1,
+        0,
+        5,
+        7
+      ],
+      "advance_native": 8,
+      "advance_proportional_study": 10,
+      "rom_token": null,
+      "advance_fixed_16": 16
+    },
+    {
+      "unicode": "U+005E",
+      "character": "^",
+      "asset_index": 62,
+      "bounds_exclusive": [
+        0,
+        0,
+        6,
+        3
+      ],
+      "advance_native": 8,
+      "advance_proportional_study": 14,
+      "rom_token": null,
+      "advance_fixed_16": 16
+    },
+    {
+      "unicode": "U+005F",
+      "character": "_",
+      "asset_index": 63,
+      "bounds_exclusive": [
+        0,
+        7,
+        7,
+        8
+      ],
+      "advance_native": 8,
+      "advance_proportional_study": 16,
+      "rom_token": null,
+      "advance_fixed_16": 16
+    },
+    {
+      "unicode": "U+0060",
+      "character": "`",
+      "asset_index": 64,
+      "bounds_exclusive": [
+        1,
+        0,
+        4,
+        3
+      ],
+      "advance_native": 8,
+      "advance_proportional_study": 8,
+      "rom_token": null,
+      "advance_fixed_16": 16
+    },
+    {
+      "unicode": "U+0061",
+      "character": "a",
+      "asset_index": 65,
+      "bounds_exclusive": [
+        0,
+        2,
+        6,
+        7
+      ],
+      "advance_native": 8,
+      "advance_proportional_study": 14,
+      "rom_token": null,
+      "advance_fixed_16": 16
+    },
+    {
+      "unicode": "U+0062",
+      "character": "b",
+      "asset_index": 66,
+      "bounds_exclusive": [
+        0,
+        0,
+        6,
+        7
+      ],
+      "advance_native": 8,
+      "advance_proportional_study": 14,
+      "rom_token": null,
+      "advance_fixed_16": 16
+    },
+    {
+      "unicode": "U+0063",
+      "character": "c",
+      "asset_index": 67,
+      "bounds_exclusive": [
+        0,
+        2,
+        6,
+        7
+      ],
+      "advance_native": 8,
+      "advance_proportional_study": 14,
+      "rom_token": null,
+      "advance_fixed_16": 16
+    },
+    {
+      "unicode": "U+0064",
+      "character": "d",
+      "asset_index": 68,
+      "bounds_exclusive": [
+        0,
+        0,
+        6,
+        7
+      ],
+      "advance_native": 8,
+      "advance_proportional_study": 14,
+      "rom_token": null,
+      "advance_fixed_16": 16
+    },
+    {
+      "unicode": "U+0065",
+      "character": "e",
+      "asset_index": 69,
+      "bounds_exclusive": [
+        0,
+        2,
+        6,
+        7
+      ],
+      "advance_native": 8,
+      "advance_proportional_study": 14,
+      "rom_token": null,
+      "advance_fixed_16": 16
+    },
+    {
+      "unicode": "U+0066",
+      "character": "f",
+      "asset_index": 70,
+      "bounds_exclusive": [
+        0,
+        0,
+        5,
+        7
+      ],
+      "advance_native": 8,
+      "advance_proportional_study": 12,
+      "rom_token": null,
+      "advance_fixed_16": 16
+    },
+    {
+      "unicode": "U+0067",
+      "character": "g",
+      "asset_index": 71,
+      "bounds_exclusive": [
+        0,
+        2,
+        6,
+        8
+      ],
+      "advance_native": 8,
+      "advance_proportional_study": 14,
+      "rom_token": null,
+      "advance_fixed_16": 16
+    },
+    {
+      "unicode": "U+0068",
+      "character": "h",
+      "asset_index": 72,
+      "bounds_exclusive": [
+        0,
+        0,
+        6,
+        7
+      ],
+      "advance_native": 8,
+      "advance_proportional_study": 14,
+      "rom_token": null,
+      "advance_fixed_16": 16
+    },
+    {
+      "unicode": "U+0069",
+      "character": "i",
+      "asset_index": 73,
+      "bounds_exclusive": [
+        1,
+        0,
+        5,
+        7
+      ],
+      "advance_native": 8,
+      "advance_proportional_study": 10,
+      "rom_token": null,
+      "advance_fixed_16": 16
+    },
+    {
+      "unicode": "U+006A",
+      "character": "j",
+      "asset_index": 74,
+      "bounds_exclusive": [
+        0,
+        0,
+        5,
+        8
+      ],
+      "advance_native": 8,
+      "advance_proportional_study": 12,
+      "rom_token": null,
+      "advance_fixed_16": 16
+    },
+    {
+      "unicode": "U+006B",
+      "character": "k",
+      "asset_index": 75,
+      "bounds_exclusive": [
+        0,
+        0,
+        5,
+        7
+      ],
+      "advance_native": 8,
+      "advance_proportional_study": 12,
+      "rom_token": null,
+      "advance_fixed_16": 16
+    },
+    {
+      "unicode": "U+006C",
+      "character": "l",
+      "asset_index": 76,
+      "bounds_exclusive": [
+        1,
+        0,
+        5,
+        7
+      ],
+      "advance_native": 8,
+      "advance_proportional_study": 10,
+      "rom_token": null,
+      "advance_fixed_16": 16
+    },
+    {
+      "unicode": "U+006D",
+      "character": "m",
+      "asset_index": 77,
+      "bounds_exclusive": [
+        0,
+        2,
+        7,
+        7
+      ],
+      "advance_native": 8,
+      "advance_proportional_study": 16,
+      "rom_token": null,
+      "advance_fixed_16": 16
+    },
+    {
+      "unicode": "U+006E",
+      "character": "n",
+      "asset_index": 78,
+      "bounds_exclusive": [
+        0,
+        2,
+        6,
+        7
+      ],
+      "advance_native": 8,
+      "advance_proportional_study": 14,
+      "rom_token": null,
+      "advance_fixed_16": 16
+    },
+    {
+      "unicode": "U+006F",
+      "character": "o",
+      "asset_index": 79,
+      "bounds_exclusive": [
+        0,
+        2,
+        6,
+        7
+      ],
+      "advance_native": 8,
+      "advance_proportional_study": 14,
+      "rom_token": null,
+      "advance_fixed_16": 16
+    },
+    {
+      "unicode": "U+0070",
+      "character": "p",
+      "asset_index": 80,
+      "bounds_exclusive": [
+        0,
+        2,
+        6,
+        8
+      ],
+      "advance_native": 8,
+      "advance_proportional_study": 14,
+      "rom_token": null,
+      "advance_fixed_16": 16
+    },
+    {
+      "unicode": "U+0071",
+      "character": "q",
+      "asset_index": 81,
+      "bounds_exclusive": [
+        0,
+        2,
+        6,
+        8
+      ],
+      "advance_native": 8,
+      "advance_proportional_study": 14,
+      "rom_token": null,
+      "advance_fixed_16": 16
+    },
+    {
+      "unicode": "U+0072",
+      "character": "r",
+      "asset_index": 82,
+      "bounds_exclusive": [
+        0,
+        2,
+        7,
+        7
+      ],
+      "advance_native": 8,
+      "advance_proportional_study": 16,
+      "rom_token": null,
+      "advance_fixed_16": 16
+    },
+    {
+      "unicode": "U+0073",
+      "character": "s",
+      "asset_index": 83,
+      "bounds_exclusive": [
+        0,
+        2,
+        6,
+        7
+      ],
+      "advance_native": 8,
+      "advance_proportional_study": 14,
+      "rom_token": null,
+      "advance_fixed_16": 16
+    },
+    {
+      "unicode": "U+0074",
+      "character": "t",
+      "asset_index": 84,
+      "bounds_exclusive": [
+        0,
+        0,
+        6,
+        7
+      ],
+      "advance_native": 8,
+      "advance_proportional_study": 14,
+      "rom_token": null,
+      "advance_fixed_16": 16
+    },
+    {
+      "unicode": "U+0075",
+      "character": "u",
+      "asset_index": 85,
+      "bounds_exclusive": [
+        0,
+        2,
+        6,
+        7
+      ],
+      "advance_native": 8,
+      "advance_proportional_study": 14,
+      "rom_token": null,
+      "advance_fixed_16": 16
+    },
+    {
+      "unicode": "U+0076",
+      "character": "v",
+      "asset_index": 86,
+      "bounds_exclusive": [
+        0,
+        2,
+        6,
+        7
+      ],
+      "advance_native": 8,
+      "advance_proportional_study": 14,
+      "rom_token": null,
+      "advance_fixed_16": 16
+    },
+    {
+      "unicode": "U+0077",
+      "character": "w",
+      "asset_index": 87,
+      "bounds_exclusive": [
+        0,
+        2,
+        7,
+        7
+      ],
+      "advance_native": 8,
+      "advance_proportional_study": 16,
+      "rom_token": null,
+      "advance_fixed_16": 16
+    },
+    {
+      "unicode": "U+0078",
+      "character": "x",
+      "asset_index": 88,
+      "bounds_exclusive": [
+        0,
+        2,
+        6,
+        7
+      ],
+      "advance_native": 8,
+      "advance_proportional_study": 14,
+      "rom_token": null,
+      "advance_fixed_16": 16
+    },
+    {
+      "unicode": "U+0079",
+      "character": "y",
+      "asset_index": 89,
+      "bounds_exclusive": [
+        0,
+        2,
+        6,
+        8
+      ],
+      "advance_native": 8,
+      "advance_proportional_study": 14,
+      "rom_token": null,
+      "advance_fixed_16": 16
+    },
+    {
+      "unicode": "U+007A",
+      "character": "z",
+      "asset_index": 90,
+      "bounds_exclusive": [
+        0,
+        2,
+        6,
+        7
+      ],
+      "advance_native": 8,
+      "advance_proportional_study": 14,
+      "rom_token": null,
+      "advance_fixed_16": 16
+    },
+    {
+      "unicode": "U+007B",
+      "character": "{",
+      "asset_index": 91,
+      "bounds_exclusive": [
+        1,
+        0,
+        6,
+        7
+      ],
+      "advance_native": 8,
+      "advance_proportional_study": 12,
+      "rom_token": null,
+      "advance_fixed_16": 16
+    },
+    {
+      "unicode": "U+007C",
+      "character": "|",
+      "asset_index": 92,
+      "bounds_exclusive": [
+        2,
+        0,
+        4,
+        7
+      ],
+      "advance_native": 8,
+      "advance_proportional_study": 6,
+      "rom_token": null,
+      "advance_fixed_16": 16
+    },
+    {
+      "unicode": "U+007D",
+      "character": "}",
+      "asset_index": 93,
+      "bounds_exclusive": [
+        1,
+        0,
+        6,
+        7
+      ],
+      "advance_native": 8,
+      "advance_proportional_study": 12,
+      "rom_token": null,
+      "advance_fixed_16": 16
+    },
+    {
+      "unicode": "U+007E",
+      "character": "~",
+      "asset_index": 94,
+      "bounds_exclusive": [
+        0,
+        2,
+        7,
+        5
+      ],
+      "advance_native": 8,
+      "advance_proportional_study": 16,
+      "rom_token": null,
+      "advance_fixed_16": 16
+    },
+    {
+      "unicode": "U+00B0",
+      "character": "\u00b0",
+      "asset_index": 95,
+      "bounds_exclusive": [
+        1,
+        0,
+        5,
+        4
+      ],
+      "advance_native": 8,
+      "advance_proportional_study": 10,
+      "rom_token": null,
+      "advance_fixed_16": 16
+    },
+    {
+      "unicode": "U+00D7",
+      "character": "\u00d7",
+      "asset_index": 96,
+      "bounds_exclusive": [
+        0,
+        1,
+        7,
+        6
+      ],
+      "advance_native": 8,
+      "advance_proportional_study": 16,
+      "rom_token": null,
+      "advance_fixed_16": 16
+    },
+    {
+      "unicode": "U+00E9",
+      "character": "\u00e9",
+      "asset_index": 97,
+      "bounds_exclusive": [
+        0,
+        0,
+        6,
+        7
+      ],
+      "advance_native": 8,
+      "advance_proportional_study": 14,
+      "rom_token": null,
+      "advance_fixed_16": 16
+    },
+    {
+      "unicode": "U+00F7",
+      "character": "\u00f7",
+      "asset_index": 98,
+      "bounds_exclusive": [
+        0,
+        1,
+        6,
+        6
+      ],
+      "advance_native": 8,
+      "advance_proportional_study": 14,
+      "rom_token": null,
+      "advance_fixed_16": 16
+    },
+    {
+      "unicode": "U+2013",
+      "character": "\u2013",
+      "asset_index": 99,
+      "bounds_exclusive": [
+        0,
+        3,
+        6,
+        4
+      ],
+      "advance_native": 8,
+      "advance_proportional_study": 14,
+      "rom_token": null,
+      "advance_fixed_16": 16
+    },
+    {
+      "unicode": "U+2014",
+      "character": "\u2014",
+      "asset_index": 100,
+      "bounds_exclusive": [
+        0,
+        3,
+        7,
+        4
+      ],
+      "advance_native": 8,
+      "advance_proportional_study": 16,
+      "rom_token": null,
+      "advance_fixed_16": 16
+    },
+    {
+      "unicode": "U+2018",
+      "character": "\u2018",
+      "asset_index": 101,
+      "bounds_exclusive": [
+        2,
+        0,
+        5,
+        3
+      ],
+      "advance_native": 8,
+      "advance_proportional_study": 8,
+      "rom_token": null,
+      "advance_fixed_16": 16
+    },
+    {
+      "unicode": "U+2019",
+      "character": "\u2019",
+      "asset_index": 102,
+      "bounds_exclusive": [
+        1,
+        0,
+        4,
+        3
+      ],
+      "advance_native": 8,
+      "advance_proportional_study": 8,
+      "rom_token": null,
+      "advance_fixed_16": 16
+    },
+    {
+      "unicode": "U+201C",
+      "character": "\u201c",
+      "asset_index": 103,
+      "bounds_exclusive": [
+        1,
+        0,
+        6,
+        3
+      ],
+      "advance_native": 8,
+      "advance_proportional_study": 12,
+      "rom_token": null,
+      "advance_fixed_16": 16
+    },
+    {
+      "unicode": "U+201D",
+      "character": "\u201d",
+      "asset_index": 104,
+      "bounds_exclusive": [
+        1,
+        0,
+        6,
+        3
+      ],
+      "advance_native": 8,
+      "advance_proportional_study": 12,
+      "rom_token": null,
+      "advance_fixed_16": 16
+    },
+    {
+      "unicode": "U+2026",
+      "character": "\u2026",
+      "asset_index": 105,
+      "bounds_exclusive": [
+        0,
+        5,
+        7,
+        7
+      ],
+      "advance_native": 8,
+      "advance_proportional_study": 16,
+      "rom_token": null,
+      "advance_fixed_16": 16
+    },
+    {
+      "unicode": "U+2190",
+      "character": "\u2190",
+      "asset_index": 106,
+      "bounds_exclusive": [
+        0,
+        1,
+        7,
+        7
+      ],
+      "advance_native": 8,
+      "advance_proportional_study": 16,
+      "rom_token": null,
+      "advance_fixed_16": 16
+    },
+    {
+      "unicode": "U+2191",
+      "character": "\u2191",
+      "asset_index": 107,
+      "bounds_exclusive": [
+        0,
+        0,
+        7,
+        7
+      ],
+      "advance_native": 8,
+      "advance_proportional_study": 16,
+      "rom_token": null,
+      "advance_fixed_16": 16
+    },
+    {
+      "unicode": "U+2192",
+      "character": "\u2192",
+      "asset_index": 108,
+      "bounds_exclusive": [
+        0,
+        1,
+        7,
+        7
+      ],
+      "advance_native": 8,
+      "advance_proportional_study": 16,
+      "rom_token": null,
+      "advance_fixed_16": 16
+    },
+    {
+      "unicode": "U+2193",
+      "character": "\u2193",
+      "asset_index": 109,
+      "bounds_exclusive": [
+        0,
+        0,
+        7,
+        7
+      ],
+      "advance_native": 8,
+      "advance_proportional_study": 16,
+      "rom_token": null,
+      "advance_fixed_16": 16
+    },
+    {
+      "unicode": "U+2665",
+      "character": "\u2665",
+      "asset_index": 110,
+      "bounds_exclusive": [
+        0,
+        1,
+        7,
+        7
+      ],
+      "advance_native": 8,
+      "advance_proportional_study": 16,
+      "rom_token": null,
+      "advance_fixed_16": 16
+    },
+    {
+      "unicode": "U+266A",
+      "character": "\u266a",
+      "asset_index": 111,
+      "bounds_exclusive": [
+        1,
+        0,
+        7,
+        7
+      ],
+      "advance_native": 8,
+      "advance_proportional_study": 14,
+      "rom_token": null,
+      "advance_fixed_16": 16
+    }
+  ]
+}

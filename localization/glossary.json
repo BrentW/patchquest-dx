@@ -1,0 +1,16 @@
+{
+  "format": "localization-glossary-v1",
+  "policy": "../LOCALIZATION.md",
+  "scope": "All games; contextual terminology examples supplied by the user, not automatic replacements or evidence of occurrence.",
+  "entries": [
+    {"japanese":"着物","romanization":"kimono","english":"Kimono","literal_meaning":null,"context":"Specific Japanese garment","status":"user-preferred contextual term","notes":"Do not flatten to dress or generic robe."},
+    {"japanese":"刀","romanization":"katana","english":"Katana","literal_meaning":null,"context":"Specific weapon terminology; assess actual source context","status":"user-preferred contextual term","notes":"Do not turn every generic sword into a katana."},
+    {"japanese":"浴衣","romanization":"yukata","english":"Yukata","literal_meaning":null,"context":"Distinct garment","status":"user-preferred contextual term","notes":"Keep distinct from generic kimono/robe."},
+    {"japanese":"温泉","romanization":"onsen","english":"Onsen","literal_meaning":"hot spring","context":"Hot-spring setting or bathing facility","status":"user-preferred contextual term","notes":"Keep distinct from sento; do not flatten to bathhouse."},
+    {"japanese":"銭湯","romanization":"sentō","english":"Sento","literal_meaning":"public bath","context":"Public bathing facility","status":"user-preferred contextual term","notes":"Not automatically an onsen."},
+    {"japanese":"たい焼き","romanization":"taiyaki","english":"Taiyaki","literal_meaning":null,"context":"Food","status":"user-preferred contextual term","notes":"A brief contextual description may clarify; do not replace the name."},
+    {"japanese":"ラーメン","romanization":"rāmen","english":"Ramen","literal_meaning":null,"context":"Food","status":"user-preferred contextual term","notes":"Retain the specific dish rather than generic noodle soup."},
+    {"japanese":"おにぎり","romanization":"onigiri","english":"Onigiri","literal_meaning":"rice ball","context":"Food","status":"user-preferred contextual term","notes":"Never Westernize into a sandwich."},
+    {"japanese":"新幹線","romanization":"shinkansen","english":"Shinkansen","literal_meaning":null,"context":"Specific Japanese rail system","status":"user-preferred contextual term","notes":"Do not apply to generic trains."}
+  ]
+}

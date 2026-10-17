@@ -1,0 +1,44 @@
+{
+  "title": "QUEST PIXEL",
+  "revision": "REVIEW 001",
+  "alphabet": [
+    "ABCDEFGHIJKLMNOPQRSTUVWXYZ",
+    "abcdefghijklmnopqrstuvwxyz",
+    "0123456789"
+  ],
+  "punctuation": [
+    ".!?,:; ' \" ‘ ’ “ ” … - – —",
+    "() [] {} / \\ < > + = _ | ~",
+    "@ # $ % ^ & * ` ° × ÷ ♥ ♪ ← → ↑ ↓ é"
+  ],
+  "dialogue": [
+    [
+      "Welcome, traveler.",
+      "The road ahead is dangerous.",
+      "Take this sword. It may help."
+    ],
+    [
+      "“Do you hear that?”",
+      "A faint melody drifts",
+      "through the silent hall… ♪"
+    ],
+    [
+      "You found 128 gold!",
+      "HP 024/100   MP 08/32",
+      "Buy a potion for 25 gold?"
+    ],
+    [
+      "I’ll wait by the old bridge.",
+      "Don’t forget your key!",
+      "Good luck, brave friend. ♥"
+    ]
+  ],
+  "comparison_text": [
+    "A torch.",
+    "Take care, friend!"
+  ],
+  "legibility": [
+    "I l 1 | O 0 Q | rn m | vv w",
+    "gjpqy  ilft  MW mw  5S 2Z 8B"
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "font": "Quest Pixel",
+  "revision": "review-001",
+  "appearance_status": "approved",
+  "glyph_source_sha256": "e4d9b7b472c39e5d11eba154b5944008bca9a774c32256ab5b6864e09864f735",
+  "character_map_sha256": "8bfda4bea046f4a4503fae565a61cc6573db77e21cad37ff9fbef6d17af17eff",
+  "scope": "Approval applies to the master artwork. Each integration and derived profile needs separate runtime validation.",
+  "metadata_note": "Neutral Unicode metrics are independent of any private encoding, recipe or allocation."
+}

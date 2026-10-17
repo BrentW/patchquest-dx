@@ -1,0 +1,15 @@
+# A private project is never part of the platform's public Git repository.
+roms/
+output/
+saves/
+archive/
+environment.json
+.local/
+__pycache__/
+*.sfc
+*.smc
+*.nes
+*.bps
+*.srm
+*.sav
+*.state*
