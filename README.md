@@ -1,15 +1,69 @@
 # Patch Quest DX
 
-**A local workspace for thoughtful, reproducible ROM translation.**
+*AI-driven discovery. Automated localization. Human refinement.*
 
-Edit translations in your browser, carry human corrections into reproducible
-builds, inspect visual evidence, and coordinate coding agents around shared
-project state. Patch Quest DX supplies reusable tools and workflows; each game's
-text, ROMs, renderer adaptations and research live in a separate private project.
+Patch Quest DX is an **AI-driven ROM reverse-engineering and localization
+platform**. It equips coding agents to investigate games, discover where text
+lives and how it is drawn, translate Japanese content, develop game-specific
+tools, build patches and validate the result. The current console tooling focuses
+on SNES games, with reusable state, layout and collaboration APIs around it.
 
-[Try the Studio](#try-the-studio) · [Feature tour](#feature-tour) ·
+**Automatic by default. Human correction by exception.**
+
+The aim is to automate routine investigation, engineering, translation, building
+and validation within an agreed project scope. People retain authority over
+corrections, creative judgment, visual quality and final acceptance. Translation
+Studio makes that work visible and editable; the shared instructions, tools and
+project state also support agents working without the browser.
+
+[Localization workflow](#the-localization-workflow) · [Current capabilities](#what-is-available-today) ·
+[Feature tour](#feature-tour) · [Try the Studio](#try-the-studio) ·
 [Developer tools](#developer-tools) · [Documentation](#documentation) ·
 [Licensing](#licensing)
+
+## The localization workflow
+
+1. **Investigate the game.** Coding agents inspect an explicitly selected ROM,
+   form and test hypotheses about encodings, text pointers, fonts, control codes
+   and rendering behavior, and retain verified findings in its private project.
+   Inspection tools assist this work; they do not automatically understand an
+   unfamiliar game's systems.
+2. **Engineer the adapter.** Agents develop extraction, insertion, rendering and
+   build tools around the reusable platform APIs. Each game's storage limits,
+   renderer hooks and resource allocations need their own verification.
+3. **Translate in context.** Agents use the Japanese source, surrounding scenes,
+   terminology and available evidence to preserve tonal identity, atmosphere,
+   character voices, relationships and emotional intent. Uncertain context stays
+   explicit; English wording should not be distorted to fit a box.
+4. **Keep corrections authoritative.** Shared state retains translations,
+   contextual memory, history and protected human corrections. Studio provides
+   an accessible place to review exceptions and refine wording; agents use the
+   same records through the API.
+5. **Build and verify.** Freeze saved revisions, plan text layout, generate a
+   derivative and patch, and validate source identity, edits, resource limits
+   and patch reconstruction. Supported emulator checks require a configured
+   integration and explicit scenarios; static checks alone cannot prove gameplay.
+6. **Review and iterate.** Human review focuses on meaningful corrections,
+   readability, navigation, timing and final acceptance. Feed findings back into
+   the project while retaining earlier checkpoints and evidence.
+
+**The coding agents perform discovery and translation.** You run clients such as
+Codex or Claude Code against a selected project. Opening Studio does not invoke
+an AI provider, and **Build test ROM** runs an already-configured private build
+pipeline; it does not discover a game's format or translate missing text.
+
+## What is available today?
+
+| Status | Scope |
+|---|---|
+| **Public platform** | ROM inspection and guarded editing primitives, SNES utilities, BPS tools, Quest Pixel typography, intelligent dialogue-layout planning, persistent translation state, Studio, browser build jobs and agent coordination. Game-specific integration is required. |
+| **Demonstrated in private integrations** | Agent-led reverse engineering, translation, renderer adaptations, reproducible game builds and targeted emulator verification. Their adapters, inputs and evidence remain private; results apply to the tested projects and scenarios. |
+| **Development previews** | Structured narrative-context guides and integrated runtime inspection/reporting. These are demonstrated below but are not yet included in the published code. |
+| **Longer-term direction** | More autonomous discovery and translation of unfamiliar games, with broader coverage and stronger verification. Arbitrary-ROM-to-complete-English-translation automation is not implemented. |
+
+The public repository supplies reusable tooling, instructions and synthetic
+examples. Each game's ROMs, text, research and adapters stay in a separate private
+project. No game releases or extracted game data are included here.
 
 ![Translation Studio with a fictional catalogue, progress counters and a protected human correction](docs/images/studio/studio-overview.png)
 
@@ -18,17 +72,16 @@ game text, ROM graphics or private project data is shown. Its build uses fiction
 bytes; its runtime example uses a synthetic grid.
 [Screenshot provenance](docs/images/studio/README.md).*
 
-**Availability:** editing, memory, browser builds, screenshot issues, agent
-coordination and dialogue layout are included in this checkout. The runtime
-inspection and narrative-context sections preview work awaiting a separate code
-review and publication. Screenshots were captured from the development workspace;
-their appearance may differ from this checkout.
+Screenshots were captured from the development workspace, including the labelled
+previews; their appearance may differ from the published checkout.
 
 ## Try the Studio
 
-Use **Python 3.10+ with SQLite** and a browser. Basic workflows need no third-party
-Python packages or provider accounts, and download nothing automatically. Git is
-used for source development and publication audits.
+Use **Python 3.10+ with SQLite** and a browser. Studio and the synthetic examples
+need no third-party Python packages or provider accounts, and download nothing
+automatically. Coding-agent clients are configured separately when you want an
+agent to investigate or translate. Git is used for source development and
+publication audits.
 
 From the platform checkout:
 
@@ -53,7 +106,26 @@ explicit validated worker launcher.
 
 ## Feature tour
 
+### Investigate ROMs and develop game-specific tools
+
+Start with explicit inputs and reproducible observations. The public tools
+calculate hashes, inspect possible SNES headers and checksums, decode planar
+graphics tiles, and provide linear 65816 disassembly. Guarded extraction preserves
+unknown bytes; insertion checks expected source bytes and rejects overlapping
+edits. Agents supply verified text ranges, encoding tables and build recipes
+instead of relying on a universal game detector.
+
+The [SNES translation skill](.agents/skills/snes-translation/SKILL.md) connects
+inspection, private research, translation and incremental verification. Reusable
+methods belong in the platform; actual game addresses, hooks and findings stay
+with the private adapter. Header guesses and static disassembly are starting
+points, not proof of runtime behavior.
+
 ### Edit with context and preserve human judgment
+
+Studio is the review surface for the shared localization workflow. It is optional:
+the same persistent records and build interfaces remain available to agents and
+headless tools.
 
 Search source text, English or record IDs; filter by scene, speaker, category and
 status. Inspect controls, context, build bindings and revision history alongside
@@ -81,10 +153,10 @@ an explicitly registered private pipeline. Follow stages, retained failures and
 result locations in the browser. Duplicate requests and concurrent builds are
 guarded; later edits belong to a later snapshot. Unsaved drafts are excluded.
 
-The private adapter validates encoding, controls, layout, allocation, checksums
-and patch reconstruction before reporting success. Technical success does not
-approve a checkpoint or certify gameplay. **Freeze current build inputs** saves
-a snapshot without starting a build.
+The private adapter is responsible for validating encoding, controls, layout,
+allocation, checksums and patch reconstruction before reporting success.
+Technical success does not approve a checkpoint or certify gameplay.
+**Freeze current build inputs** saves a snapshot without starting a build.
 
 ![Build controls and a completed synthetic job, with frozen inputs and artifact-location details](docs/images/studio/browser-builds.png)
 
@@ -126,10 +198,17 @@ their separate review.
 
 ### Coordinate Codex and Claude Code
 
-Agents discover one canonical instruction set, reusable skills, private memory
-and build interfaces. Scoped claims, leases, dependencies and
-revision checks support sequential handoffs and concurrent independent work.
-Human corrections retain precedence.
+Codex and Claude Code can use one canonical instruction set and shared project
+state. Codex discovers the repository instructions and skills; Claude's thin
+adapters point to those same sources. The project-context API identifies
+instructions and build capabilities; shared state APIs provide translation memory
+and work history so a new session can continue from durable findings rather than
+starting over.
+
+Scoped claims, leases, dependencies and revision checks support sequential
+handoffs and concurrent independent work. Competing claims and stale writes are
+rejected; human corrections retain precedence. Clients must follow the shared
+protocol, and provider setup and permissions remain under developer control.
 
 **Agents & work** exposes sessions, progress, scope and durable handoffs. Provider
 labels are reported metadata; Studio does not launch providers, route models
@@ -140,7 +219,7 @@ automatically or merge conflicting filesystem edits.
 [Agent compatibility](docs/agent-compatibility.md) ·
 [Coordination contract](docs/agent-collaboration.md)
 
-## Typography and narrative quality
+## Preserve voice and make the text feel at home
 
 Quest Pixel supplies reusable pixel artwork, compact metrics and proportional
 measurement. The dialogue planner uses actual pixel dimensions and explicit
@@ -150,11 +229,16 @@ unresolved overflow. It preserves saved wording and requires private renderer
 integration; a plan alone does not change a ROM.
 
 Localization defaults favor Title Case menus and sentence-case dialogue, guided
-by tone and context. The **narrative-context development preview**, awaiting
-separate publication, records work tone, scene changes,
-character voice, emotional state and intent, separating evidence from
-interpretation. Versioned private guides are discoverable by every agent;
-context reviews do not automatically rewrite translations.
+by tone and context. Agents should preserve Japanese cultural specificity and
+established terminology, and distinguish a character's usual voice from a change
+in mood. Shared context and translation memory support that judgment; they do
+not replace reading the source and scene.
+
+The **narrative-context development preview**, awaiting separate publication,
+adds structured records for work tone, scene atmosphere, character voice,
+relationships, emotional state and intent. It separates observations from
+interpretations and unknowns. Versioned private guides are discoverable by every
+agent; context reviews do not automatically rewrite translations.
 
 [Typography](TYPOGRAPHY.md) · [Dialogue layout](docs/dialogue-layout.md) ·
 [Localization](LOCALIZATION.md)
