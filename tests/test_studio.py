@@ -1,6 +1,8 @@
 import http.client
 import base64
 import json
+import csv
+import io
 from pathlib import Path
 import tempfile
 import threading
@@ -57,6 +59,126 @@ class StudioTests(unittest.TestCase):
         self.assertEqual(result['outcome'],'proposed')
         self.assertEqual(self.request('/api/edit',dict(params,expected=2,role='agent'))[0],400)
         self.assertEqual(self.request('/api/restore',{'key':'line-01','revision':1,'expected':2})[0],200)
+
+    def csv_rows(self, path='/api/csv-export'):
+        status, body, headers = self.request(path)
+        self.assertEqual(status, 200)
+        self.assertEqual(headers['Content-Type'], 'text/csv; charset=utf-8')
+        return list(csv.DictReader(io.StringIO(body.decode('utf-8-sig'), newline='')))
+
+    def test_source_correction_preserves_translation_raw_metadata_and_snapshots(self):
+        original = self.store.get('line-01')
+        frozen = self.store.snapshot()
+        source = 'あかりを確認しました。\n<FC> <unmapped:01>'
+        params = {'key':'line-01','expected':1,'source':source}
+        status, body, _ = self.request('/api/edit',params)
+        self.assertEqual(status,200)
+        saved = json.loads(body)['record']
+        self.assertEqual(saved['source'],source)
+        for field in ('target','controls','context','source_ref','build_binding','decoded','uncertainty'):
+            self.assertEqual(saved[field],original[field])
+        self.assertTrue(saved['human_corrected'])
+        self.assertEqual(saved['provenance']['role'],'human')
+        self.assertEqual(self.store.history('line-01')[-1]['payload']['source'],original['source'])
+        self.assertEqual(frozen['data']['records'][0]['source'],original['source'])
+        self.assertEqual(self.store.snapshot()['data']['records'][0]['source'],source)
+        memories = self.store.memory(source=source)
+        self.assertTrue(any(m['current'] and m['source']==source for m in memories))
+        self.assertEqual(self.request('/api/edit',params)[0],409)
+        proposal = self.store.put(dict(invented(),source='Agent replacement'),saved['revision'])
+        self.assertEqual(proposal['outcome'],'proposed')
+        self.assertEqual(self.store.get('line-01')['source'],source)
+        self.assertEqual(self.request('/api/restore',{'key':'line-01','revision':1,'expected':saved['revision']})[0],200)
+        self.assertEqual(self.store.get('line-01')['source'],original['source'])
+        self.assertEqual(len(self.store.history('line-01')),3)
+
+    def test_source_edit_validation_auth_and_glossary(self):
+        self.store.put(dict(invented('term'),kind='glossary'),0)
+        params={'key':'term','expected':1,'source':'新しいあかり','target':'New lantern'}
+        self.assertEqual(self.request('/api/edit',params,authorized=False)[0],401)
+        self.assertEqual(self.request('/api/edit',params,headers={'Origin':'https://external.invalid'})[0],403)
+        for invalid in (None,123,[],{},'bad\x00text','x'*100001):
+            self.assertEqual(self.request('/api/edit',dict(params,source=invalid))[0],400)
+        for field in ('controls','source_ref','build_binding','decoded','context','role'):
+            self.assertEqual(self.request('/api/edit',dict(params,**{field:'changed'}))[0],400)
+        self.assertEqual(self.request('/api/edit',{'key':'term','expected':1})[0],400)
+        self.assertEqual(self.store.get('term')['revision'],1)
+        self.assertEqual(self.request('/api/edit',params)[0],200)
+        self.assertEqual(self.store.get('term')['source'],params['source'])
+        self.assertEqual(self.store.get('term')['target'],params['target'])
+        self.assertEqual(self.store.get('term')['kind'],'glossary')
+
+    def csv_import(self, rows):
+        from patchquest.studio_csv import FIELDS
+        output = io.StringIO(newline='')
+        writer = csv.DictWriter(output, FIELDS)
+        writer.writeheader(); writer.writerows(rows)
+        return self.request('/api/csv-import', {'csv': output.getvalue()})
+
+    def test_csv_export_all_pages_filters_and_auth(self):
+        for i in range(205):
+            self.store.put(dict(invented(key=f'bulk-{i:03}',target=''),scene='Invented scene'),0)
+        rows = self.csv_rows('/api/csv-export?scene=Invented%20scene&status=untranslated')
+        self.assertEqual(len(rows),205)
+        self.assertTrue(all(r['id'].startswith('bulk-') for r in rows))
+        self.assertEqual(self.csv_rows('/api/csv-export?query=missing'),[])
+        self.assertEqual(self.request('/api/csv-export',authorized=False)[0],401)
+        self.assertEqual(self.request('/api/csv-import',{'csv':''},authorized=False)[0],401)
+        self.assertEqual(self.request('/api/csv-export?limit=1')[0],400)
+
+    def test_csv_export_matches_combined_page_filters(self):
+        from urllib.parse import urlencode
+        filters = {'kind':'translation', 'query':'lantern', 'scene':'Invented harbor',
+                   'speaker':'Invented guide', 'category':'dialogue', 'status':'translated'}
+        # Each decoy fails one active filter, so ignoring any filter changes the download.
+        for field, value in [('kind','glossary'), ('target','A different message.'),
+                             ('scene','Invented hill'), ('speaker','Invented visitor'),
+                             ('category','menu'), ('target','')]:
+            record = invented(key=f'decoy-{field}-{value}')
+            record[field] = value
+            self.store.put(record,0)
+        query = urlencode(filters)
+        listed = json.loads(self.request('/api/list?' + query)[1])
+        exported = self.csv_rows('/api/csv-export?' + query)
+        self.assertEqual([r['id'] for r in exported], ['line-01'])
+        self.assertEqual([r['id'] for r in exported], [r['id'] for r in listed['items']])
+        glossary = self.csv_rows('/api/csv-export?kind=glossary')
+        self.assertEqual([r['id'] for r in glossary], ['decoy-kind-glossary'])
+
+    def test_csv_unicode_newlines_and_human_history(self):
+        rows = self.csv_rows()
+        original = self.store.get('line-01')
+        self.assertEqual(json.loads(self.csv_import(rows)[1]),{'saved':0,'unchanged':1})
+        self.assertEqual(self.store.get('line-01'),original)
+        rows[0]['target'] = 'A comma, a "quote"\r\n日本語\n=literal'
+        self.assertEqual(json.loads(self.csv_import(rows)[1])['saved'],1)
+        saved = self.store.get('line-01')
+        self.assertEqual(saved['target'],rows[0]['target'])
+        self.assertTrue(saved['human_corrected'])
+        self.assertEqual(saved['source'],original['source'])
+        self.assertEqual(saved['provenance']['role'],'human')
+        self.assertEqual(self.csv_rows()[0]['target'],rows[0]['target'])
+        rows = self.csv_rows(); rows[0]['target']=''
+        self.assertEqual(self.csv_import(rows)[0],200)
+        self.assertEqual(self.store.get('line-01')['target'],'')
+
+    def test_csv_rejects_entire_batch_on_conflict_or_invalid_row(self):
+        self.store.put(invented(key='line-02'),0)
+        rows = self.csv_rows()
+        for row in rows: row['target']='Bulk edit'
+        self.request('/api/edit',{'key':'line-02','expected':1,'target':'New correction'})
+        self.assertEqual(self.csv_import(rows)[0],409)
+        self.assertEqual(self.store.get('line-01')['revision'],1)
+        self.assertEqual(self.store.get('line-02')['target'],'New correction')
+        rows = self.csv_rows()
+        for row in rows: row['target']='Bulk edit'
+        for field,value in [('id','unknown'),('revision','oops'),('project_id','other-project')]:
+            invalid=[dict(r) for r in rows]; invalid[1][field]=value
+            self.assertEqual(self.csv_import(invalid)[0],400)
+            self.assertEqual(self.store.get('line-01')['revision'],1)
+        self.assertEqual(self.csv_import([rows[0],rows[0]])[0],400)
+        self.assertEqual(self.store.get('line-01')['revision'],1)
+        self.assertEqual(self.request('/api/csv-import',{'csv':'id,target\nx,y'})[0],400)
 
     def test_snapshot_and_mutation_allowlist(self):
         for action in ('build-report','import','activity','evidence','backup','shell','agent-start','work-publish','work-resolve'):

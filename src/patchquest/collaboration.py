@@ -145,23 +145,60 @@ class Coordination:
             item['payload']['progress']=progress;self._save(db,item,'renewed')
         return item
 
-    def publish(self, session, key, fence, changes, reason=''):
+    def publish(self, session, key, fence, changes, reason='', source_revision=False):
+        if type(source_revision) is not bool:raise ValueError('source_revision must be boolean')
+        if source_revision:return self._revise_source(session,key,fence,changes,reason)
+        with self.store.connection() as db,self.store.transaction(db):
+            return self._publish(db,session,key,fence,changes,reason)
+
+    def _publish(self, db, session, key, fence, changes, reason=''):
+        """Existing fenced publication inside the caller's atomic transaction."""
         if not isinstance(changes,list) or not 1<=len(changes)<=200:raise ValueError('Bounded changes required')
         text(reason,'reason',4000);seen=set();results=[]
+        item=self._lease(db,session,key,fence);agent=self._agent(db,session)
+        for change in changes:
+            if not isinstance(change,dict) or set(change)-{'id','expected','target','uncertainty'} or not {'id','expected','target'}<=set(change):raise ValueError('Invalid change')
+            rid=change['id']
+            if rid in seen or rid not in item['payload']['record_ids']:raise ValueError('Duplicate or out-of-scope record')
+            seen.add(rid);data=self.store._get(db,rid)
+            for field in ('revision','human_corrected','provenance'):data.pop(field)
+            data['target']=change['target']
+            if 'uncertainty' in change:data['uncertainty']=change['uncertainty']
+            actor=agent['payload']['provider']+':'+session
+            results.append(self.store._put(db,data,change['expected'],'agent',actor,reason,_work=True))
+        item['payload']['progress']='Published '+str(len(results))+' results; proposals remain inactive'
+        self._save(db,item,'published')
+        return {'task':item,'results':results}
+
+    def _revise_source(self, session, key, fence, changes, reason):
+        """Revise interpretation under a lease, retaining raw bindings and targets.
+
+        This does not re-extract media or prove the caller's decoding evidence.
+        Protected records use the store's inactive-proposal behavior.
+        """
+        if not text(reason,'reason',4000).strip():raise ValueError('Source revision reason required')
+        if not isinstance(changes,list) or not 1<=len(changes)<=200:
+            raise ValueError('Bounded changes required')
+        if len(canonical(changes).encode('utf-8'))>2000000:raise ValueError('Source revision batch too large')
+        fields={'source','decoded','controls','context'}
+        seen=set();results=[]
         with self.store.connection() as db,self.store.transaction(db):
             item=self._lease(db,session,key,fence);agent=self._agent(db,session)
             for change in changes:
-                if not isinstance(change,dict) or set(change)-{'id','expected','target','uncertainty'} or not {'id','expected','target'}<=set(change):raise ValueError('Invalid change')
-                rid=change['id']
-                if rid in seen or rid not in item['payload']['record_ids']:raise ValueError('Duplicate or out-of-scope record')
+                if not isinstance(change,dict) or set(change)!={'id','expected','source_patch'}:
+                    raise ValueError('Invalid source revision')
+                rid=change['id'];patch=change['source_patch']
+                if rid in seen or rid not in item['payload']['record_ids']:
+                    raise ValueError('Duplicate or out-of-scope record')
+                if not isinstance(patch,dict) or not patch or set(patch)-fields:
+                    raise ValueError('Only source interpretation fields may change')
                 seen.add(rid);data=self.store._get(db,rid)
                 for field in ('revision','human_corrected','provenance'):data.pop(field)
-                data['target']=change['target']
-                if 'uncertainty' in change:data['uncertainty']=change['uncertainty']
+                data.update(patch)
                 actor=agent['payload']['provider']+':'+session
                 results.append(self.store._put(db,data,change['expected'],'agent',actor,reason,_work=True))
-            item['payload']['progress']='Published '+str(len(results))+' results; proposals remain inactive'
-            self._save(db,item,'published')
+            item['payload']['progress']='Reviewed source interpretation for '+str(len(results))+' records; proposals remain inactive'
+            self._save(db,item,'source-revised')
         return {'task':item,'results':results}
 
     def finish(self, session, key, fence, status='done', handoff=''):

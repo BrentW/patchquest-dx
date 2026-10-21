@@ -24,10 +24,14 @@ def main(argv=None):
     studio = commands.add_parser('studio', help='Optional local Translation Studio; no private code execution')
     studio.add_argument('manifest', type=Path)
     studio.add_argument('--port', type=int, default=8765)
+    studio.add_argument('--progress-interval', type=int, default=300,
+                        help='Private progress report refresh in seconds (1–86400; default 300)')
     check = commands.add_parser('project-check', help='Validate a manifest and its source; never import its code')
     check.add_argument('manifest', type=Path)
     inspection = commands.add_parser('inspect', help='Read one explicitly selected file; keep output private')
     inspection.add_argument('source', type=Path)
+    fds_inspection = commands.add_parser('fds-inspect', help='Inspect one explicit FDS container; keep its report private')
+    fds_inspection.add_argument('source', type=Path)
     for name in ('extract', 'insert'):
         command = commands.add_parser(name)
         command.add_argument('source', type=Path)
@@ -52,7 +56,7 @@ def main(argv=None):
             from .studio import serve
             if not 0 <= args.port <= 65535:
                 raise ValueError('Invalid port')
-            serve(args.manifest, args.port)
+            serve(args.manifest, args.port, platform_root=args.platform, progress_interval=args.progress_interval)
             return 0
         elif args.command == 'state':
             from .state import Store
@@ -67,6 +71,9 @@ def main(argv=None):
             result = {'manifest_valid': True, 'source_hash_matches': True, 'private_code_loaded': False}
         elif args.command == 'inspect':
             result = inspect(args.source)
+        elif args.command == 'fds-inspect':
+            from .storage.fds import inventory
+            result = inventory(args.source.read_bytes())
         elif args.command in ('extract', 'insert'):
             manifest = json.loads(args.manifest.read_text(encoding='utf-8-sig'))
             source = load_source(args.source, manifest['source_sha256'])

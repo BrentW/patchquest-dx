@@ -1,5 +1,16 @@
 # Private projects and the public platform
 
+`patchquest.assessments` extends existing issue history with revision-bound
+exceptions, independent source labels and provider outcomes. See the canonical
+[exception workflow](translation-exceptions.md). Actual assessments and migration
+evidence stay private; the public schema and tests use invented observations.
+
+Optional [runtime evidence](runtime-evidence.md) follows the same boundary:
+generic adapters, frame assertions and scenario validation live in the platform;
+actual emulator paths, ROM/state identities, scenarios and captures stay private.
+Local runners bind evidence to existing build snapshots and attachments. Studio
+displays results without executing browser-selected native code.
+
 The dependency direction is **private runner → public Python library**. The platform owns generic algorithms and never imports project code. Encodings, pointer formats, hooks, allocations, translations and runtime tests remain private, even when they inspired a public improvement.
 
 ## Directory contract
@@ -42,14 +53,22 @@ Paths resolve against the manifest directory, regardless of current working dire
 | `patchquest.core.edits` | Hash-pinned reads, equal-length expected-byte edits, overlap/bounds checks and explicit one-byte extraction tables |
 | `patchquest.core.packing` | Deterministic placement of indivisible blobs in caller-verified intervals; explicit failure on insufficient capacity or search budget |
 | `patchquest.consoles.snes.inspection` | File/payload hashes, header candidates, mapping heuristics and mirrored checksums |
+| `patchquest.storage.fds` | Strict raw/headered FDS inventory, byte preservation and guarded equal-size stored-file edits; no game decoding or allocation inference |
 | `patchquest.consoles.snes.checksum` | Checksum/complement updates at an explicitly validated header; no automatic mapping choice |
 | `patchquest.consoles.snes.tiles` | SNES tile planes and pixel previews |
 | `patchquest.consoles.cpu65816` | Linear disassembly with limited tracked M/X state; not control-flow analysis |
 | `patchquest.patches.bps` | Deterministic SourceRead/TargetRead encoding and verification of that subset |
 | `patchquest.typography.font` | Quest Pixel loading, rasterization, bitplane checks and specimens |
 | `patchquest.typography.layout` | Metrics, wrapping, padding/alignment, substitutions and retained opaque controls |
+| `patchquest.narrative` | Optional private evidence-linked tone/voice/scene guides, explicit record associations and stale-review detection; read-only |
 
 No shared API guesses compression, pointer reachability, free space, Japanese encoding or game control semantics. Private adapters own those. Host typography does not implement a console runtime renderer.
+
+For renderer work in other games, systems or applications, evaluate the
+[shared dictionary/loader pattern](../TYPOGRAPHY.md#applying-the-pattern-to-other-games-and-systems)
+when repeated graphics or per-record code becomes a bottleneck. Reusable planning
+and validation belong in the platform; target-specific loaders remain private.
+The linked guidance is an investigation path, not a portable runtime API.
 
 ## Running and evolving projects
 
@@ -78,6 +97,13 @@ runners import the state API and consume immutable snapshots; the platform
 never imports a private adapter or interprets its game-specific build binding.
 No ROM is needed for state browsing. Versioned records are authoritative for
 new snapshot builds; legacy records remain frozen for old recipe reproduction.
+
+An optional `resources.narrative_context` points to a versioned private guide;
+see [narrative context](narrative-context.md). It supplements source/state/memory,
+does not execute private code, and cannot change translation snapshots or build
+bytes by itself. Agent discovery reports its revision/hash; the shared reader
+checks source identity, references and the immediate predecessor. Editorial
+interpretations and inactive review suggestions are not runtime evidence.
 
 ## Promotion policy
 

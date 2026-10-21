@@ -5,8 +5,9 @@
 Patch Quest DX is an **AI-driven ROM reverse-engineering and localization
 platform**. It equips coding agents to investigate games, discover where text
 lives and how it is drawn, translate Japanese content, develop game-specific
-tools, build patches and validate the result. The current console tooling focuses
-on SNES games, with reusable state, layout and collaboration APIs around it.
+tools, build patches and validate the result. Console tooling includes SNES
+primitives and bounded PC-88/FDS storage tools, with reusable state, layout and
+collaboration APIs around them.
 
 **Automatic by default. Human correction by exception.**
 
@@ -58,7 +59,7 @@ pipeline; it does not discover a game's format or translate missing text.
 |---|---|
 | **Public platform** | ROM inspection and guarded editing primitives, SNES utilities, BPS tools, Quest Pixel typography, intelligent dialogue-layout planning, persistent translation state, Studio, browser build jobs and agent coordination. Game-specific integration is required. |
 | **Demonstrated in private integrations** | Agent-led reverse engineering, translation, renderer adaptations, reproducible game builds and targeted emulator verification. Their adapters, inputs and evidence remain private; results apply to the tested projects and scenarios. |
-| **Development previews** | Structured narrative-context guides and integrated runtime inspection/reporting. These are demonstrated below but are not yet included in the published code. |
+| **Reusable workflows** | Narrative-context guides and review proposals; bounded runtime scenes, sweeps, detectors and coverage; tester reports and reviewed metadata exports. Actual game adapters, scenarios and evidence remain private. |
 | **Longer-term direction** | More autonomous discovery and translation of unfamiliar games, with broader coverage and stronger verification. Arbitrary-ROM-to-complete-English-translation automation is not implemented. |
 
 The public repository supplies reusable tooling, instructions and synthetic
@@ -72,8 +73,9 @@ game text, ROM graphics or private project data is shown. Its build uses fiction
 bytes; its runtime example uses a synthetic grid.
 [Screenshot provenance](docs/images/studio/README.md).*
 
-Screenshots were captured from the development workspace, including the labelled
-previews; their appearance may differ from the published checkout.
+Screenshots show an earlier Studio interface. The current interface groups its
+pages into Dashboard, Translate, Test & review, and Prepare exports, with
+expandable filters and an explicit project selector.
 
 ## Try the Studio
 
@@ -173,10 +175,7 @@ automatic OCR and screenshot-to-text matching are not implemented.
 
 ![Issues view with fictional concerns, an attached synthetic Studio screenshot and association-history controls](docs/images/studio/screenshot-issues.png)
 
-### Inspect runtime evidence — development preview
-
-This integration is not included in the current checkout. The development
-preview demonstrates the following workflow:
+### Inspect runtime evidence
 
 Bounded scenarios can drive an explicitly configured software libretro core,
 capture frames and check named pixel expectations. Reports bind observations to
@@ -193,8 +192,11 @@ command launches a core. No emulator is bundled or downloaded.
 *This public example demonstrates report plumbing with a synthetic grid. It is
 not evidence of emulator execution or game compatibility.*
 
-Runtime inspection code and its detailed guide will be published together after
-their separate review.
+Reusable scene, sweep, detector and coverage interfaces support private adapters.
+Exhaustive message rendering requires an adapter that can enumerate and exercise
+those messages; a passing bounded run is not whole-game coverage. See
+[runtime evidence](docs/runtime-evidence.md), [sweeps](docs/runtime-sweeps.md) and
+[coverage reconciliation](docs/runtime-catalog-coverage.md).
 
 ### Coordinate Codex and Claude Code
 
@@ -234,8 +236,8 @@ established terminology, and distinguish a character's usual voice from a change
 in mood. Shared context and translation memory support that judgment; they do
 not replace reading the source and scene.
 
-The **narrative-context development preview**, awaiting separate publication,
-adds structured records for work tone, scene atmosphere, character voice,
+The [narrative-context framework](docs/narrative-context.md)
+provides structured records for work tone, scene atmosphere, character voice,
 relationships, emotional state and intent. It separates observations from
 interpretations and unknowns. Versioned private guides are discoverable by every
 agent; context reviews do not automatically rewrite translations.
@@ -254,7 +256,9 @@ Python APIs and JSON CLI operations support headless work alongside Studio:
 | SNES support | Header/checksum inspection, planar tiles and linear 65816 disassembly |
 | Patches | Deterministic BPS creation and strict SourceRead/TargetRead subset decoding |
 | Typography | Glyph data, proportional measurement, block layout and capability-gated overflow planning |
-| Verification | Synthetic public tests, revision-bound build reports and privacy/history audits; runtime adapters remain a development preview |
+| Disk storage | Bounded D88/FDS inspection, guarded edits and explicit BASIC/FAT8/delimited-record helpers; no bundled game formats |
+| Verification | Synthetic tests, revision-bound runtime evidence, coverage reconciliation, regression plans and privacy/history audits |
+| Review and preparation | Narrative proposals, tester intake, selected milestone/screenshot metadata and validated private release manifests; no automatic publication |
 
 ```sh
 python -X utf8 -B -m unittest discover -s tests -p "test_*.py" -v
@@ -281,7 +285,7 @@ modules. See the [architecture contract](docs/project-architecture.md).
 - Builds require an explicit worker. Selective builds, cancellation, automatic
   screenshot matching and provider orchestration remain deferred. Heavy build
   validation can reduce server responsiveness; latency depends on the pipeline.
-- The runtime development preview covers named scenarios and installed capabilities. Audio
+- Runtime inspection covers named scenarios and installed capabilities. Audio
   analysis, desktop debugger control and hardware certification are not provided.
   State replay does not establish cold-boot or battery-save compatibility.
 - BPS supports the encoder's SourceRead/TargetRead subset. Independent patcher
@@ -298,9 +302,14 @@ modules. See the [architecture contract](docs/project-architecture.md).
 | Start here | Go deeper |
 |---|---|
 | [Fresh installation](docs/local-setup.md) | [Local workspace and classification](docs/local-workspace.md) |
+| [Start a game translation](docs/starting-a-translation.md) | [Translate-game skill](.agents/skills/translate-game/SKILL.md) and [specialist roles](.agents/skills/game-translation-team/SKILL.md) |
 | [Translation Studio](docs/translation-studio.md) | [Project architecture and migration](docs/project-architecture.md) |
 | [Agent instructions](AGENTS.md) | [SNES skill](.agents/skills/snes-translation/SKILL.md) and [collaboration skill](.agents/skills/translation-collaboration/SKILL.md) |
 | [Dialogue layout](docs/dialogue-layout.md) | [Typography](TYPOGRAPHY.md) |
+| [Runtime evidence](docs/runtime-evidence.md) | [Scenes](docs/runtime-scene-library.md), [detectors](docs/runtime-detectors.md) and [runtime review](docs/runtime-review.md) |
+| [Narrative context](docs/narrative-context.md) | [Review proposals](docs/narrative-review.md) and [tester reports](docs/tester-workflow.md) |
+| [Release preparation](docs/release-preparation.md) | [Verification readiness](docs/verification-readiness.md) and [progress reports](docs/progress-reports.md) |
+| [PC-88 workflow](docs/pc88-workflow.md) | [Disk containers](docs/disk-images.md) and [FDS storage](docs/fds-workflow.md) |
 | [Localization](LOCALIZATION.md) | [Publication readiness](docs/publication-readiness.md) |
 
 Keep original ROMs, derivatives, saves, translations and reverse-engineering

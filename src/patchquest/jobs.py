@@ -31,12 +31,14 @@ class Jobs:
                 self.store._event(db, 'job', {'id':row['id'], 'status':'interrupted'})
             db.execute('DELETE FROM build_worker WHERE slot=1')
 
-    def register(self, owner, label):
+    def register(self, owner, label, *, require_idle=False):
         with self.store.connection() as db, self.store.transaction(db):
             self._expire(db)
             old = db.execute('SELECT * FROM build_worker WHERE slot=1').fetchone()
             if old and old['owner'] != owner:
                 raise Conflict('Another build worker is active for this project')
+            if require_idle and db.execute("SELECT 1 FROM build_jobs WHERE status IN ('queued','running')").fetchone():
+                raise Conflict('This project has an unfinished build. Inspect it before loading a builder.')
             db.execute('INSERT OR REPLACE INTO build_worker VALUES(1,?,?,?)',
                        (owner, text(label, 'worker label', 200), time.time()+LEASE_SECONDS))
             self.store._event(db, 'worker', {'status':'online', 'label':label})
@@ -60,13 +62,27 @@ class Jobs:
             if db.execute('DELETE FROM build_worker WHERE slot=1 AND owner=?', (owner,)).rowcount:
                 self.store._event(db, 'worker', {'status':'offline'})
 
-    def capabilities(self):
+    def release_idle(self, owner):
+        """Fence submissions/claims before detaching an idle, owned worker."""
         with self.store.connection() as db, self.store.transaction(db):
             self._expire(db)
             worker = db.execute('SELECT * FROM build_worker WHERE slot=1').fetchone()
-            busy = db.execute("SELECT id FROM build_jobs WHERE status IN ('queued','running') LIMIT 1").fetchone()
+            if worker and worker['owner'] != owner:
+                raise Conflict('This builder is controlled by another launcher.')
+            if db.execute("SELECT 1 FROM build_jobs WHERE status IN ('queued','running')").fetchone():
+                raise Conflict('A build is queued or running. Wait for it to finish before switching builders.')
+            if db.execute('DELETE FROM build_worker WHERE slot=1 AND owner=?', (owner,)).rowcount:
+                self.store._event(db, 'worker', {'status':'offline'})
+
+    def capabilities(self, owner=None):
+        with self.store.connection() as db, self.store.transaction(db):
+            self._expire(db)
+            worker = db.execute('SELECT * FROM build_worker WHERE slot=1').fetchone()
+            busy = db.execute("SELECT id,status,payload FROM build_jobs WHERE status IN ('queued','running') ORDER BY created LIMIT 1").fetchone()
             return {'available': bool(worker), 'modes':['full'] if worker else [],
                     'worker': worker['label'] if worker else '', 'active_job':busy['id'] if busy else None,
+                    'owned': bool(worker and owner and worker['owner'] == owner),
+                    'job': {'id':busy['id'], 'status':busy['status'], 'stage':json.loads(busy['payload'])['stage']} if busy else None,
                     'note':'Full integrated build from saved revisions. Selective builds are not configured.'}
 
     def submit(self, request_id, mode='full'):
@@ -84,6 +100,8 @@ class Jobs:
                 raise Conflict('No private build worker is online. Start the project Studio launcher.')
             if db.execute("SELECT 1 FROM build_jobs WHERE status IN ('queued','running')").fetchone():
                 raise Conflict('A build is already queued or running')
+            from .assessments import build_gate
+            build_gate(self.store, db)
             snapshot = {'schema':1, 'project_id':self.store.context.manifest['project_id'],
                         'source_sha256':self.store.context.manifest['source']['sha256'],
                         'records':self.store._all(db)}
@@ -142,10 +160,16 @@ class BuildWorker:
         self.label=label; self.stop=threading.Event(); self.draining=threading.Event(); self.thread=None
         self.failure=None
 
-    def start(self):
-        self.jobs.register(self.owner,self.label)
-        self.thread=threading.Thread(target=self._run,daemon=True);self.thread.start()
-        self.heartbeat_thread=threading.Thread(target=self._heartbeat,daemon=True);self.heartbeat_thread.start()
+    def start(self, *, require_idle=False):
+        self.jobs.register(self.owner,self.label,require_idle=require_idle)
+        self.thread=threading.Thread(target=self._run,daemon=True)
+        self.heartbeat_thread=threading.Thread(target=self._heartbeat,daemon=True)
+        try:
+            self.thread.start()
+            self.heartbeat_thread.start()
+        except Exception:
+            self.close()
+            raise
         return self
 
     def _heartbeat(self):
@@ -186,7 +210,13 @@ class BuildWorker:
         # A graceful close lets an in-flight immutable build finish. A hard crash
         # is detected by its expiring heartbeat and never automatically retried.
         self.draining.set()
-        if self.thread:self.thread.join()
+        if self.thread and self.thread.ident is not None:self.thread.join()
         self.stop.set()
-        if self.thread:self.heartbeat_thread.join(2)
+        if self.thread and self.heartbeat_thread.ident is not None:self.heartbeat_thread.join(2)
         self.jobs.unregister(self.owner)
+
+    def close_if_idle(self):
+        # Deleting the registration in the same transaction as the busy check
+        # prevents a concurrent browser/CLI submission from being stranded.
+        self.jobs.release_idle(self.owner)
+        self.close()

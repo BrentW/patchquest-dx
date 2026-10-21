@@ -1,0 +1,26 @@
+{
+  "data": {
+    "id": "invented-context-question",
+    "title": "Context reference needs investigation",
+    "status": "open",
+    "record_ids": ["invented-line"],
+    "assessment": {
+      "kind": "exception", "code": "missing_context",
+      "rationale": "The referenced synthetic scene note does not identify the listener.",
+      "references": ["notes/invented-scene.md#listener"],
+      "alternatives": ["An individual listener", "The assembled group"],
+      "attempted": ["Checked the adjacent synthetic exchange."],
+      "next_action": "Inspect speaker staging to establish who is addressed.",
+      "severity": "low", "build_impact": "advisory",
+      "bindings": {"invented-line": {
+        "revision": 1,
+        "source_sha256": "REPLACE_FROM_ASSESSMENT_CONTEXT",
+        "target_sha256": "REPLACE_FROM_ASSESSMENT_CONTEXT",
+        "context_sha256": "REPLACE_FROM_ASSESSMENT_CONTEXT"
+      }},
+      "narrative_sha256": null,
+      "provenance": {"agent": "example-agent", "method": "context review"}
+    }
+  },
+  "expected": 0, "actor": "example-agent"
+}

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Translate Game"
+  short_description: "Start a private game translation with a small playable proof"
+  default_prompt: "Use $translate-game to start a private English translation of the game file I provide, beginning with one small menu and a short dialogue passage."

@@ -1,5 +1,10 @@
 # Coding-agent compatibility
 
+Both adapters discover [exceptions and content handling](translation-exceptions.md)
+through `agent-context`. Use `assessment-context`, revisioned `issue-put`, and
+`provider-result` for evidence-bound annotations, never provider-specific queues
+or automatic routing around restrictions.
+
 All agents use the same Python/JSON state API, private project contract and
 localization policies. No provider SDK, API key, model selection or second
 translation engine is required. An agent's optional identity/model label is
@@ -78,6 +83,11 @@ shared operations and build capability. Follow [the collaboration contract](agen
 and the `translation-collaboration` skill. The same work queue, memory, glossary,
 protected corrections and immutable build inputs apply regardless of provider.
 No API keys or provider SDKs belong in project configuration.
+
+The same discovery packet advertises the optional private [narrative guide](narrative-context.md),
+its revision/hash and the `narrative-context` read action. Both clients read the
+same work, character, scene and revision-bound review context. These are data,
+not a provider-specific instruction copy or permission to rewrite human edits.
 
 Use `python examples/collaboration-demo.py --workspace .local/projects/agent-demo`
 for a fresh synthetic trial. It prepares a protected greeting and two dependent

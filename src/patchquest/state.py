@@ -191,25 +191,43 @@ class Store:
             return 'untranslated'
         if row['human_corrected']:
             return 'corrected'
-        return 'uncertain' if row['uncertainty'] else 'translated'
+        return 'translated'
 
     def _all(self, db):
         rows = db.execute('SELECT v.*,r.human FROM records r JOIN revisions v ON r.id=v.id AND r.revision=v.revision ORDER BY r.id').fetchall()
         return [dict(json.loads(r['payload']), revision=r['revision'], human_corrected=bool(r['human'])) for r in rows]
 
-    def list(self, query='', kind='translation', scene='', speaker='', category='', status='', offset=0, limit=50):
+    def list(self, query='', kind='translation', scene='', speaker='', category='', status='', offset=0, limit=50,
+             exception='', content='', severity='', investigation='', stale=''):
         if kind not in KINDS or status not in ('', 'untranslated', 'corrected', 'uncertain', 'translated'):
             raise ValueError('Invalid filter')
-        if type(offset) is not int or offset < 0 or type(limit) is not int or not 1 <= limit <= 200:
+        if type(offset) is not int or offset < 0 or (limit is not None and (type(limit) is not int or not 1 <= limit <= 200)):
             raise ValueError('Invalid page')
         q = text(query, 'query', 1000).casefold()
-        with self.connection() as db:
-            rows = [r for r in self._all(db) if r['kind'] == kind]
+        from .assessments import rows_in_transaction, filter_rows
+        with self.connection() as db, self.transaction(db, write=False):
+            records = self._all(db)
+            annotations = rows_in_transaction(self, db, {r['id']:r for r in records})
+            rows = [r for r in records if r['kind'] == kind]
         facets = {k: sorted({r[k] for r in rows if r[k]}) for k in ('scene', 'speaker', 'category')}
         rows = [r for r in rows if (not q or q in '\n'.join(r[k] for k in ('id', 'source', 'target', 'speaker', 'scene')).casefold())
                 and (not scene or r['scene'] == scene) and (not speaker or r['speaker'] == speaker)
-                and (not category or r['category'] == category) and (not status or self.status(r) == status)]
-        return {'total': len(rows), 'items': rows[offset:offset+limit], 'facets': facets}
+                and (not category or r['category'] == category)
+                and (not status or (bool(r['uncertainty']) if status == 'uncertain' else self.status(r) == status))]
+        # Filters operate on record sets: a content flag and an exception may
+        # belong to different annotations on the same record.
+        for name, value in (('exception', exception), ('content', content), ('severity', severity),
+                            ('investigation', investigation), ('stale', stale)):
+            if value:
+                matched = {key for a in filter_rows(annotations, **{name: value}) for key in a['record_ids']}
+                rows = [r for r in rows if r['id'] in matched]
+        page = rows[offset:offset+limit] if limit is not None else rows[offset:]
+        for r in page:
+            r['assessments'] = [{k: a[k] for k in ('id', 'revision', 'status', 'stale', 'assessment_label')} |
+                {'kind': a.get('assessment', {}).get('kind', 'legacy'),
+                 'severity': a.get('assessment', {}).get('severity', 'info')}
+                for a in annotations if r['id'] in a['record_ids']]
+        return {'total': len(rows), 'items': page, 'facets': facets}
 
     def _put(self, db, data, expected, role, actor, reason, _work=False):
         data = record_data(data)
@@ -245,6 +263,113 @@ class Store:
     def put(self, data, expected, role='agent', actor='', reason=''):
         with self.connection() as db, self.transaction(db):
             return self._put(db, data, expected, role, actor, reason)
+
+    def _propose(self, db, data, expected, actor, reason):
+        """Save an inactive alternative, including for unprotected records."""
+        data = record_data(data)
+        current = self._get(db, data['id'])
+        if type(expected) is not int or expected != current['revision']:
+            raise Conflict('Proposal input changed; reload and reconcile')
+        if data['kind'] != current['kind']:
+            raise ValueError('Record kind is immutable')
+        text(actor, 'actor', 200)
+        if not text(reason, 'reason', 4000).strip():
+            raise ValueError('Proposal reason required')
+        row = db.execute('INSERT INTO proposals(id,base,payload,actor,reason,created) VALUES(?,?,?,?,?,?)',
+                         (data['id'], expected, canonical(data), actor, reason, now()))
+        self._event(db, 'proposal', {'id': data['id'], 'base': expected, 'actor': actor, 'seq': row.lastrowid})
+        return {'outcome': 'proposed', 'proposal_seq': row.lastrowid, 'record': current}
+
+    def propose(self, data, expected, actor='', reason=''):
+        """No translation mutation or lease bypass: proposals never become input."""
+        with self.connection() as db, self.transaction(db):
+            return self._propose(db, data, expected, actor, reason)
+
+    def correct_targets(self, changes, actor='Studio user'):
+        """Atomic human bulk correction of existing records, with revision checks."""
+        saved = unchanged = 0
+        seen = set()
+        with self.connection() as db, self.transaction(db):
+            for change in changes:
+                key = change['id']
+                if key in seen:
+                    raise ValueError('Duplicate record ID')
+                seen.add(key)
+                current = self._get(db, key)
+                if current['revision'] != change['revision']:
+                    raise Conflict('CSV record changed: ' + key)
+                text(change['target'], 'target')
+                if current['target'] == change['target']:
+                    unchanged += 1
+                    continue
+                record = {k:v for k,v in current.items() if k not in ('revision','human_corrected','provenance')}
+                record['target'] = change['target']
+                self._put(db, record, change['revision'], 'human', actor, 'CSV bulk correction')
+                saved += 1
+        return {'saved': saved, 'unchanged': unchanged}
+
+    def upsert(self, project_id, changes, actor='', reason='', dry_run=True):
+        """Atomic agent-only batch; preview by default, stable caller-owned IDs.
+
+        Creates supply full data at expected=0. Updates supply only id, target
+        and optional uncertainty. Exact replays do not create revisions/events.
+        Coordinated records must continue through work-publish instead.
+        """
+        if project_id != self.context.manifest['project_id']:
+            raise ValueError('Batch project differs from selected manifest')
+        if type(dry_run) is not bool or not isinstance(changes, list) or not 1 <= len(changes) <= 100:
+            raise ValueError('Expected boolean dry_run and 1 to 100 changes')
+        text(actor, 'actor', 200); text(reason, 'reason', 4000)
+        if len(canonical(changes).encode('utf8')) > 2_000_000:
+            raise ValueError('Batch too large')
+        keys = set()
+        for change in changes:
+            if not isinstance(change, dict) or set(change) != {'data', 'expected'}:
+                raise ValueError('Each change needs data and expected')
+            data, expected = change['data'], change['expected']
+            if not isinstance(data, dict) or type(expected) is not int or expected < 0:
+                raise ValueError('Invalid change or revision')
+            key = identity(data.get('id'))
+            if key in keys:
+                raise ValueError('Duplicate record ID in batch')
+            keys.add(key)
+            if expected == 0:
+                if not {'source', 'target'} <= set(data):
+                    raise ValueError('Create needs explicit source and target')
+                record_data(data)
+            elif not {'id', 'target'} <= set(data) or set(data) - {'id', 'target', 'uncertainty'}:
+                raise ValueError('Updates may change only target and uncertainty')
+        results = []
+        with self.connection() as db, self.transaction(db, write=not dry_run):
+            for change in changes:
+                data, expected = change['data'], change['expected']
+                key = data['id']
+                if db.execute('SELECT 1 FROM work_managed WHERE record_id=?', (key,)).fetchone():
+                    raise Conflict('Coordinated records require work-publish')
+                head = db.execute('SELECT revision,human FROM records WHERE id=?', (key,)).fetchone()
+                revision = head['revision'] if head else 0
+                if expected > revision:
+                    raise Conflict('Expected revision has not been read')
+                current = None
+                if head:
+                    active = self._get(db, key)
+                    current = {k: active[k] for k in record_data({'id': key})}
+                candidate = record_data(data if expected == 0 else dict(current, **data))
+                outcome = 'created' if not head else 'updated'
+                if current == candidate:
+                    outcome = 'unchanged'
+                else:
+                    if expected != revision:
+                        raise Conflict('Record changed; reload and reconcile')
+                    if head and head['human']:
+                        duplicate = db.execute('SELECT 1 FROM proposals WHERE id=? AND base=? AND payload=?',
+                                               (key, revision, canonical(candidate))).fetchone()
+                        outcome = 'proposal_exists' if duplicate else 'proposed'
+                    if not dry_run and outcome != 'proposal_exists':
+                        saved = self._put(db, candidate, expected, 'agent', actor, reason)
+                        revision = saved['record']['revision']
+                results.append({'id': key, 'outcome': outcome, 'revision': revision})
+        return {'dry_run': dry_run, 'results': results}
 
     def import_records(self, records, actor='migration'):
         """All-or-nothing, idempotent first import. Never overwrite a migrated edit."""
@@ -340,11 +465,30 @@ class Store:
         with self.connection() as db:
             return [dict(r, payload=json.loads(r['payload'])) for r in db.execute('SELECT * FROM events WHERE seq>? ORDER BY seq LIMIT ?', (after, limit))]
 
+    def _progress(self, db):
+        """Numeric projection of current saved targets, never memory or proposals."""
+        total = translated = 0
+        for row in db.execute('SELECT v.payload FROM records r JOIN revisions v ON r.id=v.id AND r.revision=v.revision'):
+            record = json.loads(row[0])
+            if record['kind'] == 'translation':
+                total += 1
+                translated += bool(record['target'].strip())
+        # A rounded percentage must never claim 100 while work remains.
+        percent = (100.0 if translated == total else min(99.9, round(translated * 100 / total, 1))) if total else None
+        return {'schema_version': 1, 'report_type': 'translation-progress',
+                'updated_at': now(), 'basis': 'catalogued_translation_records',
+                'total_records': total, 'translated_records': translated,
+                'remaining_records': total - translated, 'percent_translated': percent}
+
+    def progress(self):
+        with self.connection() as db, self.transaction(db, write=False):
+            return self._progress(db)
+
     def overview(self):
         with self.connection() as db, self.transaction(db, write=False):
             rows = [r for r in self._all(db) if r['kind'] == 'translation']
             counts = {'discovered': len(rows), 'decoded': sum(r['decoded'] for r in rows),
-                      'translated': sum(bool(r['target']) for r in rows), 'uncertain': sum(bool(r['uncertainty']) for r in rows),
+                      'translated': sum(bool(r['target'].strip()) for r in rows), 'uncertain': sum(bool(r['uncertainty']) for r in rows),
                       'human_corrected': sum(r['human_corrected'] for r in rows)}
             for stage in STAGES:
                 ids={r['id'] for r in rows}
@@ -357,11 +501,17 @@ class Store:
                     'title': self.context.manifest.get('data', {}).get('title', self.context.manifest['project_id']),
                     'counts': counts, 'percentages': {k: round(v*100/len(rows),1) if rows else None for k,v in counts.items()},
                     'denominator': 'catalogued translation records, not the whole game',
-                    'open_issues': sum(i['status'] != 'closed' for i in issues), 'cursor': cursor,
+                    'open_issues': sum(i['status'] not in ('closed','resolved') and
+                        i.get('assessment',{}).get('kind','exception') == 'exception' for i in issues), 'cursor': cursor,
                     'activity': dict(active, payload=json.loads(active['payload'])) if active else None}
 
     def put_issue(self, data, expected, actor=''):
-        if not isinstance(data, dict) or set(data) - {'id','title','description','category','status','record_ids','scene','build_id','references'}:
+        with self.connection() as db, self.transaction(db):
+            return self._put_issue(db, data, expected, actor)
+
+    def _put_issue(self, db, data, expected, actor=''):
+        from .assessments import validate, check_bindings, STATUSES
+        if not isinstance(data, dict) or set(data) - {'id','title','description','category','status','record_ids','scene','build_id','references','assessment'}:
             raise ValueError('Invalid issue')
         p = {'id': identity(data.get('id'))}
         for key in ('title','description','category','scene','build_id'):
@@ -369,23 +519,35 @@ class Store:
         if not p['title']:
             raise ValueError('Issue needs a title')
         p['status'] = data.get('status','open')
-        if p['status'] not in ('open','investigating','resolved','closed'):
+        if p['status'] not in STATUSES:
             raise ValueError('Invalid issue status')
         for key in ('record_ids','references'):
             p[key] = data.get(key,[])
             if not isinstance(p[key],list) or not all(isinstance(v,str) and len(v)<4000 for v in p[key]):
                 raise ValueError('Invalid issue links')
-        with self.connection() as db, self.transaction(db):
-            for key in p['record_ids']:
-                self._get(db,key)
-            head=db.execute('SELECT revision FROM issues WHERE id=?',(p['id'],)).fetchone()
-            if type(expected) is not int or expected != (head[0] if head else 0):
-                raise Conflict('Issue changed; reload')
-            revision=expected+1
-            db.execute('INSERT INTO issue_history VALUES(?,?,?,?,?)',(p['id'],revision,canonical(p),text(actor,'actor',200),now()))
-            db.execute('INSERT INTO issues VALUES(?,?,?) ON CONFLICT(id) DO UPDATE SET revision=excluded.revision,payload=excluded.payload',(p['id'],revision,canonical(p)))
-            self._event(db,'issue',{'id':p['id'],'revision':revision,'status':p['status']})
-            return dict(p,revision=revision)
+        for key in p['record_ids']:
+            self._get(db,key)
+        head=db.execute('SELECT revision,payload FROM issues WHERE id=?',(p['id'],)).fetchone()
+        if type(expected) is not int or expected < 0 or expected != (head[0] if head else 0):
+            raise Conflict('Issue changed; reload')
+        previous = json.loads(head['payload']).get('assessment') if head else None
+        if previous and 'assessment' not in data:
+            raise ValueError('Retain assessment history; resolve it instead of removing it')
+        if 'assessment' in data:
+            p['assessment'] = validate(data['assessment'])
+            if set(p['record_ids']) != set(p['assessment']['bindings']):
+                raise ValueError('Assessment scope must match issue record links')
+            check_bindings(self, db, p['assessment'], previous)
+            if previous and previous['kind'] != p['assessment']['kind']:
+                raise ValueError('Assessment kind is immutable; create a separate annotation')
+            p['category'] = p['assessment']['code']
+            if p['status'] in ('resolved','closed') and p['assessment']['kind'] == 'exception' and not p['assessment']['resolution']:
+                raise ValueError('Resolved exceptions need a resolution note')
+        revision=expected+1
+        db.execute('INSERT INTO issue_history VALUES(?,?,?,?,?)',(p['id'],revision,canonical(p),text(actor,'actor',200),now()))
+        db.execute('INSERT INTO issues VALUES(?,?,?) ON CONFLICT(id) DO UPDATE SET revision=excluded.revision,payload=excluded.payload',(p['id'],revision,canonical(p)))
+        self._event(db,'issue',{'id':p['id'],'revision':revision,'status':p['status']})
+        return dict(p,revision=revision)
 
     def issues(self):
         with self.connection() as db:

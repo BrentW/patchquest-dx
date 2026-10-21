@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "report_type": "tester-reports",
+  "project_id": "invented-lantern-demo",
+  "source": "local-test-session",
+  "reports": [
+    {
+      "external_id": "menu-001",
+      "title": "Invented menu label touches its border",
+      "category": "layout",
+      "description": "Synthetic example only; not extracted from a game.",
+      "steps": "Open the invented menu and highlight the second choice.",
+      "expected": "The complete label has comfortable padding.",
+      "observed": "The final letter touches the right border.",
+      "environment": "Reported emulator and version, or unknown.",
+      "build_label": "Invented test build",
+      "artifact_sha256": "",
+      "suggested_translation": "",
+      "attachment_digests": []
+    }
+  ]
+}

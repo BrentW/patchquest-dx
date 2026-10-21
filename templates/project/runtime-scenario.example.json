@@ -1,0 +1,20 @@
+{
+  "schema": 1,
+  "id": "invented-menu-check",
+  "rom_sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+  "snapshot": "1111111111111111111111111111111111111111111111111111111111111111",
+  "records": {"example-menu": 1},
+  "initial": {"kind": "cold_boot"},
+  "timeout_seconds": 60,
+  "notes": "Invented template. Replace hashes, geometry, timing and expectations with reviewed private evidence.",
+  "steps": [
+    {"frames": 120, "capture": "initial", "assertions": [
+      {"kind": "color_count", "label": "Expected example background", "rect": [8, 8, 16, 16], "color": [0, 0, 64], "minimum": 240}
+    ]},
+    {"frames": 2, "buttons": ["Down"]},
+    {"frames": 10, "capture": "moved", "assertions": [
+      {"kind": "difference", "label": "Example selection region changes", "capture": "initial", "rect": [24, 40, 80, 32], "minimum": 20},
+      {"kind": "difference", "label": "Example frame border stays unchanged", "capture": "initial", "rect": [8, 8, 16, 16], "maximum": 0}
+    ]}
+  ]
+}

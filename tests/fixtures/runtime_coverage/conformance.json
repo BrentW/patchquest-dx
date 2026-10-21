@@ -1,0 +1,725 @@
+{
+  "provenance": "Independently invented; no ROM, real translation, screenshot or runtime trace used.",
+  "connectors": {
+    "CaseSpec": {
+      "schema_version": 1,
+      "kind": "CaseSpec",
+      "case_id": "fictional-greeting-page-0",
+      "coverage_scope": "invented-room",
+      "required_capabilities": [
+        "capture_frames"
+      ],
+      "record_ids": [
+        "greeting"
+      ],
+      "message_id": "greeting-script",
+      "page": 0,
+      "window_id": "dialogue",
+      "context_id": "first-visit",
+      "variant_id": "wide-name",
+      "extensions": {}
+    },
+    "RunBinding": {
+      "schema_version": 1,
+      "kind": "RunBinding",
+      "build_id": "invented-build",
+      "artifacts": {
+        "rom": "6e70591d77553e1264ddd3bfd144686296b220eb75852813ec67aa0d79f0034f"
+      },
+      "snapshot": "9e3a83c82bbe6ee2a2d5bf2f01c48a3fb4e6c815ddbb1b1830b15aa12616b134",
+      "records": {
+        "greeting": 1
+      },
+      "scenario_sha256": "1184c5c4c636bd4d659c45d15137694dac5ea6671f0dba28fd0cb6e68e4831f2",
+      "configuration_sha256": "095ea55894d89c5735d90167634fb72fa086d703a938c0f752c36062093b6431",
+      "adapter": {
+        "id": "invented-adapter",
+        "version": "1"
+      },
+      "emulator": {
+        "id": "invented-emulator",
+        "version": "1",
+        "sha256": "28dc8139a9209d3b78c741e9454a1ab39d97dbf6c79764671e9a638071087349"
+      },
+      "expectation_sha256": "94ebe03092c860c5a9960489c1c20b86686682bbd85c6f2f297151ed47e0765a",
+      "detectors": {
+        "bounds": "1"
+      },
+      "extensions": {}
+    },
+    "AdapterCapabilities": {
+      "schema_version": 1,
+      "kind": "AdapterCapabilities",
+      "adapter": {
+        "id": "invented-adapter",
+        "version": "1"
+      },
+      "provenance": "synthetic",
+      "capabilities": {
+        "capture_frames": true,
+        "enumerate_messages": false,
+        "observe_glyphs": false,
+        "observe_resources": false,
+        "input": false,
+        "page_advance": false,
+        "native_scroll": false,
+        "restore_state": false,
+        "game_save": false,
+        "debug_access": false
+      },
+      "extensions": {}
+    },
+    "EvidenceRef": {
+      "schema_version": 1,
+      "kind": "EvidenceRef",
+      "evidence_id": "capture-one",
+      "sha256": "0c41ec403bb9f2cf7329c61aa20587f0642a3be58dac0917342c579897beff15",
+      "media_type": "application/octet-stream",
+      "byte_length": 46,
+      "integrity": "verified",
+      "retention": "referenced",
+      "provenance": {
+        "producer": "invented-adapter",
+        "method": "synthetic",
+        "run_id": "run-one",
+        "case_id": "fictional-greeting-page-0"
+      },
+      "extensions": {}
+    },
+    "CaseObservation": {
+      "schema_version": 1,
+      "kind": "CaseObservation",
+      "observation_id": "observation-one",
+      "run_id": "run-one",
+      "case_id": "fictional-greeting-page-0",
+      "case_sha256": "6b83b050018149398a6f6f819cf41547363eb3a273962d3b3de97e02113f8211",
+      "binding": {
+        "schema_version": 1,
+        "kind": "RunBinding",
+        "build_id": "invented-build",
+        "artifacts": {
+          "rom": "6e70591d77553e1264ddd3bfd144686296b220eb75852813ec67aa0d79f0034f"
+        },
+        "snapshot": "9e3a83c82bbe6ee2a2d5bf2f01c48a3fb4e6c815ddbb1b1830b15aa12616b134",
+        "records": {
+          "greeting": 1
+        },
+        "scenario_sha256": "1184c5c4c636bd4d659c45d15137694dac5ea6671f0dba28fd0cb6e68e4831f2",
+        "configuration_sha256": "095ea55894d89c5735d90167634fb72fa086d703a938c0f752c36062093b6431",
+        "adapter": {
+          "id": "invented-adapter",
+          "version": "1"
+        },
+        "emulator": {
+          "id": "invented-emulator",
+          "version": "1",
+          "sha256": "28dc8139a9209d3b78c741e9454a1ab39d97dbf6c79764671e9a638071087349"
+        },
+        "expectation_sha256": "94ebe03092c860c5a9960489c1c20b86686682bbd85c6f2f297151ed47e0765a",
+        "detectors": {
+          "bounds": "1"
+        },
+        "extensions": {}
+      },
+      "provenance": "synthetic",
+      "method": "synthetic",
+      "reach_method": "cold_boot_navigation",
+      "execution": "completed",
+      "assertion": "passed",
+      "validity": "current",
+      "frames": 12,
+      "captures": [
+        {
+          "frame": 12,
+          "evidence": {
+            "schema_version": 1,
+            "kind": "EvidenceRef",
+            "evidence_id": "capture-one",
+            "sha256": "0c41ec403bb9f2cf7329c61aa20587f0642a3be58dac0917342c579897beff15",
+            "media_type": "application/octet-stream",
+            "byte_length": 46,
+            "integrity": "verified",
+            "retention": "referenced",
+            "provenance": {
+              "producer": "invented-adapter",
+              "method": "synthetic",
+              "run_id": "run-one",
+              "case_id": "fictional-greeting-page-0"
+            },
+            "extensions": {}
+          }
+        }
+      ],
+      "reason": "",
+      "glyphs": null,
+      "resources": null,
+      "controls": {},
+      "extensions": {}
+    },
+    "SceneHandle": {
+      "schema_version": 1,
+      "kind": "SceneHandle",
+      "scene_id": "invented-scene",
+      "binding": {
+        "schema_version": 1,
+        "kind": "RunBinding",
+        "build_id": "invented-build",
+        "artifacts": {
+          "rom": "6e70591d77553e1264ddd3bfd144686296b220eb75852813ec67aa0d79f0034f"
+        },
+        "snapshot": "9e3a83c82bbe6ee2a2d5bf2f01c48a3fb4e6c815ddbb1b1830b15aa12616b134",
+        "records": {
+          "greeting": 1
+        },
+        "scenario_sha256": "1184c5c4c636bd4d659c45d15137694dac5ea6671f0dba28fd0cb6e68e4831f2",
+        "configuration_sha256": "095ea55894d89c5735d90167634fb72fa086d703a938c0f752c36062093b6431",
+        "adapter": {
+          "id": "invented-adapter",
+          "version": "1"
+        },
+        "emulator": {
+          "id": "invented-emulator",
+          "version": "1",
+          "sha256": "28dc8139a9209d3b78c741e9454a1ab39d97dbf6c79764671e9a638071087349"
+        },
+        "expectation_sha256": "94ebe03092c860c5a9960489c1c20b86686682bbd85c6f2f297151ed47e0765a",
+        "detectors": {
+          "bounds": "1"
+        },
+        "extensions": {}
+      },
+      "reach_method": "cold_boot_navigation",
+      "arrival_assertions": [
+        "invented-border-check"
+      ],
+      "status": "ready",
+      "checkpoint": null,
+      "reason": "",
+      "extensions": {}
+    },
+    "DetectorFinding": {
+      "schema_version": 1,
+      "kind": "DetectorFinding",
+      "finding_id": "bounds-one",
+      "observation_id": "observation-one",
+      "case_id": "fictional-greeting-page-0",
+      "case_sha256": "6b83b050018149398a6f6f819cf41547363eb3a273962d3b3de97e02113f8211",
+      "binding": {
+        "schema_version": 1,
+        "kind": "RunBinding",
+        "build_id": "invented-build",
+        "artifacts": {
+          "rom": "6e70591d77553e1264ddd3bfd144686296b220eb75852813ec67aa0d79f0034f"
+        },
+        "snapshot": "9e3a83c82bbe6ee2a2d5bf2f01c48a3fb4e6c815ddbb1b1830b15aa12616b134",
+        "records": {
+          "greeting": 1
+        },
+        "scenario_sha256": "1184c5c4c636bd4d659c45d15137694dac5ea6671f0dba28fd0cb6e68e4831f2",
+        "configuration_sha256": "095ea55894d89c5735d90167634fb72fa086d703a938c0f752c36062093b6431",
+        "adapter": {
+          "id": "invented-adapter",
+          "version": "1"
+        },
+        "emulator": {
+          "id": "invented-emulator",
+          "version": "1",
+          "sha256": "28dc8139a9209d3b78c741e9454a1ab39d97dbf6c79764671e9a638071087349"
+        },
+        "expectation_sha256": "94ebe03092c860c5a9960489c1c20b86686682bbd85c6f2f297151ed47e0765a",
+        "detectors": {
+          "bounds": "1"
+        },
+        "extensions": {}
+      },
+      "detector_id": "bounds",
+      "detector_version": "1",
+      "expectation_id": "invented-bounds",
+      "status": "passed",
+      "evidence_ids": [
+        "capture-one"
+      ],
+      "reason": "",
+      "region": null,
+      "control": null,
+      "extensions": {}
+    },
+    "CoverageReport": {
+      "schema_version": 1,
+      "kind": "CoverageReport",
+      "report_id": "coverage-one",
+      "binding": {
+        "schema_version": 1,
+        "kind": "RunBinding",
+        "build_id": "invented-build",
+        "artifacts": {
+          "rom": "6e70591d77553e1264ddd3bfd144686296b220eb75852813ec67aa0d79f0034f"
+        },
+        "snapshot": "9e3a83c82bbe6ee2a2d5bf2f01c48a3fb4e6c815ddbb1b1830b15aa12616b134",
+        "records": {
+          "greeting": 1
+        },
+        "scenario_sha256": "1184c5c4c636bd4d659c45d15137694dac5ea6671f0dba28fd0cb6e68e4831f2",
+        "configuration_sha256": "095ea55894d89c5735d90167634fb72fa086d703a938c0f752c36062093b6431",
+        "adapter": {
+          "id": "invented-adapter",
+          "version": "1"
+        },
+        "emulator": {
+          "id": "invented-emulator",
+          "version": "1",
+          "sha256": "28dc8139a9209d3b78c741e9454a1ab39d97dbf6c79764671e9a638071087349"
+        },
+        "expectation_sha256": "94ebe03092c860c5a9960489c1c20b86686682bbd85c6f2f297151ed47e0765a",
+        "detectors": {
+          "bounds": "1"
+        },
+        "extensions": {}
+      },
+      "scope": {
+        "id": "invented-room",
+        "description": "One invented case, not whole-game coverage.",
+        "case_ids": [
+          "fictional-greeting-page-0"
+        ],
+        "case_digests": {
+          "fictional-greeting-page-0": "6b83b050018149398a6f6f819cf41547363eb3a273962d3b3de97e02113f8211"
+        },
+        "extraction_completeness": "unknown",
+        "extraction_basis": ""
+      },
+      "sections": [
+        {
+          "scope_kind": "renderer",
+          "method": "synthetic",
+          "rows": [
+            {
+              "case_id": "fictional-greeting-page-0",
+              "status": "passed",
+              "reason": "",
+              "observation_ids": [
+                "observation-one"
+              ],
+              "finding_ids": [
+                "bounds-one"
+              ]
+            }
+          ],
+          "denominator": 1,
+          "counts": {
+            "passed": 1,
+            "failed": 0,
+            "untested": 0,
+            "in_progress": 0,
+            "interrupted": 0,
+            "stale": 0,
+            "excluded": 0,
+            "unsupported": 0,
+            "unknown": 0
+          },
+          "passed_percent": 100.0
+        }
+      ],
+      "gap_candidates": [],
+      "extensions": {}
+    },
+    "ChangeImpactPlan": {
+      "schema_version": 1,
+      "kind": "ChangeImpactPlan",
+      "plan_id": "impact-one",
+      "binding": {
+        "schema_version": 1,
+        "kind": "RunBinding",
+        "build_id": "invented-build",
+        "artifacts": {
+          "rom": "6e70591d77553e1264ddd3bfd144686296b220eb75852813ec67aa0d79f0034f"
+        },
+        "snapshot": "9e3a83c82bbe6ee2a2d5bf2f01c48a3fb4e6c815ddbb1b1830b15aa12616b134",
+        "records": {
+          "greeting": 1
+        },
+        "scenario_sha256": "1184c5c4c636bd4d659c45d15137694dac5ea6671f0dba28fd0cb6e68e4831f2",
+        "configuration_sha256": "095ea55894d89c5735d90167634fb72fa086d703a938c0f752c36062093b6431",
+        "adapter": {
+          "id": "invented-adapter",
+          "version": "1"
+        },
+        "emulator": {
+          "id": "invented-emulator",
+          "version": "1",
+          "sha256": "28dc8139a9209d3b78c741e9454a1ab39d97dbf6c79764671e9a638071087349"
+        },
+        "expectation_sha256": "94ebe03092c860c5a9960489c1c20b86686682bbd85c6f2f297151ed47e0765a",
+        "detectors": {
+          "bounds": "1"
+        },
+        "extensions": {}
+      },
+      "baseline_binding": null,
+      "case_ids": [
+        "fictional-greeting-page-0"
+      ],
+      "dependency_revisions": null,
+      "selected": [
+        {
+          "case_id": "fictional-greeting-page-0",
+          "reason": "Unknown dependencies require full scope."
+        }
+      ],
+      "deferred": [],
+      "full_sweep_required": true,
+      "additional_checks": [
+        "cold_boot",
+        "game_save_load",
+        "normal_gameplay"
+      ],
+      "extensions": {}
+    }
+  },
+  "observations": [
+    {
+      "name": "success",
+      "value": {
+        "schema_version": 1,
+        "kind": "CaseObservation",
+        "observation_id": "observation-one",
+        "run_id": "run-one",
+        "case_id": "fictional-greeting-page-0",
+        "case_sha256": "6b83b050018149398a6f6f819cf41547363eb3a273962d3b3de97e02113f8211",
+        "binding": {
+          "schema_version": 1,
+          "kind": "RunBinding",
+          "build_id": "invented-build",
+          "artifacts": {
+            "rom": "6e70591d77553e1264ddd3bfd144686296b220eb75852813ec67aa0d79f0034f"
+          },
+          "snapshot": "9e3a83c82bbe6ee2a2d5bf2f01c48a3fb4e6c815ddbb1b1830b15aa12616b134",
+          "records": {
+            "greeting": 1
+          },
+          "scenario_sha256": "1184c5c4c636bd4d659c45d15137694dac5ea6671f0dba28fd0cb6e68e4831f2",
+          "configuration_sha256": "095ea55894d89c5735d90167634fb72fa086d703a938c0f752c36062093b6431",
+          "adapter": {
+            "id": "invented-adapter",
+            "version": "1"
+          },
+          "emulator": {
+            "id": "invented-emulator",
+            "version": "1",
+            "sha256": "28dc8139a9209d3b78c741e9454a1ab39d97dbf6c79764671e9a638071087349"
+          },
+          "expectation_sha256": "94ebe03092c860c5a9960489c1c20b86686682bbd85c6f2f297151ed47e0765a",
+          "detectors": {
+            "bounds": "1"
+          },
+          "extensions": {}
+        },
+        "provenance": "synthetic",
+        "method": "synthetic",
+        "reach_method": "cold_boot_navigation",
+        "execution": "completed",
+        "assertion": "passed",
+        "validity": "current",
+        "frames": 12,
+        "captures": [
+          {
+            "frame": 12,
+            "evidence": {
+              "schema_version": 1,
+              "kind": "EvidenceRef",
+              "evidence_id": "capture-one",
+              "sha256": "0c41ec403bb9f2cf7329c61aa20587f0642a3be58dac0917342c579897beff15",
+              "media_type": "application/octet-stream",
+              "byte_length": 46,
+              "integrity": "verified",
+              "retention": "referenced",
+              "provenance": {
+                "producer": "invented-adapter",
+                "method": "synthetic",
+                "run_id": "run-one",
+                "case_id": "fictional-greeting-page-0"
+              },
+              "extensions": {}
+            }
+          }
+        ],
+        "reason": "",
+        "glyphs": null,
+        "resources": null,
+        "controls": {},
+        "extensions": {}
+      }
+    },
+    {
+      "name": "failure",
+      "value": {
+        "schema_version": 1,
+        "kind": "CaseObservation",
+        "observation_id": "observation-one",
+        "run_id": "run-one",
+        "case_id": "fictional-greeting-page-0",
+        "case_sha256": "6b83b050018149398a6f6f819cf41547363eb3a273962d3b3de97e02113f8211",
+        "binding": {
+          "schema_version": 1,
+          "kind": "RunBinding",
+          "build_id": "invented-build",
+          "artifacts": {
+            "rom": "6e70591d77553e1264ddd3bfd144686296b220eb75852813ec67aa0d79f0034f"
+          },
+          "snapshot": "9e3a83c82bbe6ee2a2d5bf2f01c48a3fb4e6c815ddbb1b1830b15aa12616b134",
+          "records": {
+            "greeting": 1
+          },
+          "scenario_sha256": "1184c5c4c636bd4d659c45d15137694dac5ea6671f0dba28fd0cb6e68e4831f2",
+          "configuration_sha256": "095ea55894d89c5735d90167634fb72fa086d703a938c0f752c36062093b6431",
+          "adapter": {
+            "id": "invented-adapter",
+            "version": "1"
+          },
+          "emulator": {
+            "id": "invented-emulator",
+            "version": "1",
+            "sha256": "28dc8139a9209d3b78c741e9454a1ab39d97dbf6c79764671e9a638071087349"
+          },
+          "expectation_sha256": "94ebe03092c860c5a9960489c1c20b86686682bbd85c6f2f297151ed47e0765a",
+          "detectors": {
+            "bounds": "1"
+          },
+          "extensions": {}
+        },
+        "provenance": "synthetic",
+        "method": "synthetic",
+        "reach_method": "cold_boot_navigation",
+        "execution": "completed",
+        "assertion": "failed",
+        "validity": "current",
+        "frames": 12,
+        "captures": [
+          {
+            "frame": 12,
+            "evidence": {
+              "schema_version": 1,
+              "kind": "EvidenceRef",
+              "evidence_id": "capture-one",
+              "sha256": "0c41ec403bb9f2cf7329c61aa20587f0642a3be58dac0917342c579897beff15",
+              "media_type": "application/octet-stream",
+              "byte_length": 46,
+              "integrity": "verified",
+              "retention": "referenced",
+              "provenance": {
+                "producer": "invented-adapter",
+                "method": "synthetic",
+                "run_id": "run-one",
+                "case_id": "fictional-greeting-page-0"
+              },
+              "extensions": {}
+            }
+          }
+        ],
+        "reason": "Invented bounds failure.",
+        "glyphs": null,
+        "resources": null,
+        "controls": {},
+        "extensions": {}
+      }
+    },
+    {
+      "name": "partial",
+      "value": {
+        "schema_version": 1,
+        "kind": "CaseObservation",
+        "observation_id": "observation-one",
+        "run_id": "run-one",
+        "case_id": "fictional-greeting-page-0",
+        "case_sha256": "6b83b050018149398a6f6f819cf41547363eb3a273962d3b3de97e02113f8211",
+        "binding": {
+          "schema_version": 1,
+          "kind": "RunBinding",
+          "build_id": "invented-build",
+          "artifacts": {
+            "rom": "6e70591d77553e1264ddd3bfd144686296b220eb75852813ec67aa0d79f0034f"
+          },
+          "snapshot": "9e3a83c82bbe6ee2a2d5bf2f01c48a3fb4e6c815ddbb1b1830b15aa12616b134",
+          "records": {
+            "greeting": 1
+          },
+          "scenario_sha256": "1184c5c4c636bd4d659c45d15137694dac5ea6671f0dba28fd0cb6e68e4831f2",
+          "configuration_sha256": "095ea55894d89c5735d90167634fb72fa086d703a938c0f752c36062093b6431",
+          "adapter": {
+            "id": "invented-adapter",
+            "version": "1"
+          },
+          "emulator": {
+            "id": "invented-emulator",
+            "version": "1",
+            "sha256": "28dc8139a9209d3b78c741e9454a1ab39d97dbf6c79764671e9a638071087349"
+          },
+          "expectation_sha256": "94ebe03092c860c5a9960489c1c20b86686682bbd85c6f2f297151ed47e0765a",
+          "detectors": {
+            "bounds": "1"
+          },
+          "extensions": {}
+        },
+        "provenance": "synthetic",
+        "method": "synthetic",
+        "reach_method": "cold_boot_navigation",
+        "execution": "interrupted",
+        "assertion": "not_assessed",
+        "validity": "current",
+        "frames": 12,
+        "captures": [
+          {
+            "frame": 12,
+            "evidence": {
+              "schema_version": 1,
+              "kind": "EvidenceRef",
+              "evidence_id": "capture-one",
+              "sha256": "0c41ec403bb9f2cf7329c61aa20587f0642a3be58dac0917342c579897beff15",
+              "media_type": "application/octet-stream",
+              "byte_length": 46,
+              "integrity": "verified",
+              "retention": "referenced",
+              "provenance": {
+                "producer": "invented-adapter",
+                "method": "synthetic",
+                "run_id": "run-one",
+                "case_id": "fictional-greeting-page-0"
+              },
+              "extensions": {}
+            }
+          }
+        ],
+        "reason": "Invented time budget reached.",
+        "glyphs": null,
+        "resources": null,
+        "controls": {},
+        "extensions": {}
+      }
+    },
+    {
+      "name": "unsupported",
+      "value": {
+        "schema_version": 1,
+        "kind": "CaseObservation",
+        "observation_id": "observation-one",
+        "run_id": "run-one",
+        "case_id": "fictional-greeting-page-0",
+        "case_sha256": "6b83b050018149398a6f6f819cf41547363eb3a273962d3b3de97e02113f8211",
+        "binding": {
+          "schema_version": 1,
+          "kind": "RunBinding",
+          "build_id": "invented-build",
+          "artifacts": {
+            "rom": "6e70591d77553e1264ddd3bfd144686296b220eb75852813ec67aa0d79f0034f"
+          },
+          "snapshot": "9e3a83c82bbe6ee2a2d5bf2f01c48a3fb4e6c815ddbb1b1830b15aa12616b134",
+          "records": {
+            "greeting": 1
+          },
+          "scenario_sha256": "1184c5c4c636bd4d659c45d15137694dac5ea6671f0dba28fd0cb6e68e4831f2",
+          "configuration_sha256": "095ea55894d89c5735d90167634fb72fa086d703a938c0f752c36062093b6431",
+          "adapter": {
+            "id": "invented-adapter",
+            "version": "1"
+          },
+          "emulator": {
+            "id": "invented-emulator",
+            "version": "1",
+            "sha256": "28dc8139a9209d3b78c741e9454a1ab39d97dbf6c79764671e9a638071087349"
+          },
+          "expectation_sha256": "94ebe03092c860c5a9960489c1c20b86686682bbd85c6f2f297151ed47e0765a",
+          "detectors": {
+            "bounds": "1"
+          },
+          "extensions": {}
+        },
+        "provenance": "synthetic",
+        "method": "synthetic",
+        "reach_method": "cold_boot_navigation",
+        "execution": "unsupported",
+        "assertion": "unsupported",
+        "validity": "current",
+        "frames": 0,
+        "captures": [],
+        "reason": "Required native scrolling is not available.",
+        "glyphs": null,
+        "resources": null,
+        "controls": {},
+        "extensions": {}
+      }
+    },
+    {
+      "name": "stale",
+      "value": {
+        "schema_version": 1,
+        "kind": "CaseObservation",
+        "observation_id": "observation-one",
+        "run_id": "run-one",
+        "case_id": "fictional-greeting-page-0",
+        "case_sha256": "6b83b050018149398a6f6f819cf41547363eb3a273962d3b3de97e02113f8211",
+        "binding": {
+          "schema_version": 1,
+          "kind": "RunBinding",
+          "build_id": "invented-build",
+          "artifacts": {
+            "rom": "6e70591d77553e1264ddd3bfd144686296b220eb75852813ec67aa0d79f0034f"
+          },
+          "snapshot": "9e3a83c82bbe6ee2a2d5bf2f01c48a3fb4e6c815ddbb1b1830b15aa12616b134",
+          "records": {
+            "greeting": 1
+          },
+          "scenario_sha256": "1184c5c4c636bd4d659c45d15137694dac5ea6671f0dba28fd0cb6e68e4831f2",
+          "configuration_sha256": "095ea55894d89c5735d90167634fb72fa086d703a938c0f752c36062093b6431",
+          "adapter": {
+            "id": "invented-adapter",
+            "version": "1"
+          },
+          "emulator": {
+            "id": "invented-emulator",
+            "version": "1",
+            "sha256": "28dc8139a9209d3b78c741e9454a1ab39d97dbf6c79764671e9a638071087349"
+          },
+          "expectation_sha256": "94ebe03092c860c5a9960489c1c20b86686682bbd85c6f2f297151ed47e0765a",
+          "detectors": {
+            "bounds": "1"
+          },
+          "extensions": {}
+        },
+        "provenance": "synthetic",
+        "method": "synthetic",
+        "reach_method": "cold_boot_navigation",
+        "execution": "completed",
+        "assertion": "passed",
+        "validity": "stale",
+        "frames": 12,
+        "captures": [
+          {
+            "frame": 12,
+            "evidence": {
+              "schema_version": 1,
+              "kind": "EvidenceRef",
+              "evidence_id": "capture-one",
+              "sha256": "0c41ec403bb9f2cf7329c61aa20587f0642a3be58dac0917342c579897beff15",
+              "media_type": "application/octet-stream",
+              "byte_length": 46,
+              "integrity": "verified",
+              "retention": "referenced",
+              "provenance": {
+                "producer": "invented-adapter",
+                "method": "synthetic",
+                "run_id": "run-one",
+                "case_id": "fictional-greeting-page-0"
+              },
+              "extensions": {}
+            }
+          }
+        ],
+        "reason": "A newer record revision exists.",
+        "glyphs": null,
+        "resources": null,
+        "controls": {},
+        "extensions": {}
+      }
+    }
+  ]
+}

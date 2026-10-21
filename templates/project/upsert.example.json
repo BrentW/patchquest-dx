@@ -1,0 +1,20 @@
+{
+  "project_id": "invented-demo",
+  "actor": "example-agent",
+  "reason": "Synthetic example authored independently for this template.",
+  "dry_run": true,
+  "changes": [
+    {
+      "expected": 0,
+      "data": {
+        "id": "harbor.sign.welcome",
+        "source": "Welcome, traveler.",
+        "target": "Welcome, traveler.",
+        "scene": "Invented harbor",
+        "category": "sign",
+        "decoded": true,
+        "context": {"note": "Synthetic nonsexual placeholder, not extracted game text."}
+      }
+    }
+  ]
+}

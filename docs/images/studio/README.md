@@ -6,10 +6,10 @@ They are public documentation assets under the repository's Apache-2.0 scope.
 No commercial game's text, ROM graphics, personal paths or launch credentials
 appear in them. They contain system-rendered UI text, not bundled font software.
 
-These captures come from the development workspace. The README identifies
-runtime inspection and narrative context as previews: their implementation is
-awaiting separate code review and publication. The screenshots document that
-development state, not a guarantee that every shown control is in this checkout.
+These captures show the development interface on 2026-10-17, when runtime
+inspection and narrative context were previews. Their reusable implementations
+are now included in the platform. The current Studio groups pages and filters
+differently; these unchanged images retain their original capture provenance.
 
 ## Images
 

@@ -1,0 +1,18 @@
+{
+  "data": {
+    "release_id": "lantern-demo-test",
+    "title": "Invented Lantern Demo",
+    "version": "test-1",
+    "source_label": "Invented fixture revision 1",
+    "patch_filename": "lantern-demo-test.bps",
+    "output_filename": "lantern-demo-test.bin",
+    "compatibility": "Exact invented input file only; no normalization.",
+    "limitations": "Synthetic demonstration; no game, runtime or release approval."
+  },
+  "build_id": "invented-build",
+  "patch_artifact": "patch",
+  "output_artifact": "rom",
+  "repeat_build_id": "",
+  "private_notes": "Replace these labels with reviewed private project details.",
+  "expected": 0
+}

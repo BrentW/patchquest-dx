@@ -1,5 +1,12 @@
 # Localization standards
 
+Use [translation exceptions and content classifications](docs/translation-exceptions.md)
+for evidence-backed uncertainty, fidelity concerns and mature-content handling.
+Classification is descriptive, separate from progress and provider permission;
+preserve permitted meaning and explicitness without silent sanitization. Follow
+applicable safeguards and record restrictions accurately without rewriting saved
+corrections or creating an approval queue.
+
 Permanent policy for every current and future game in this repository, established by the user on 2026-10-16. **Localize the language, not the culture.** Aim for polished, natural English that preserves the original storytelling, characters, humor, emotional impact and Japanese cultural identity. This policy does not itself authorize a new translation phase or require rebuilding accepted checkpoints; follow the separately authorized scope.
 
 ## Capitalization
@@ -9,6 +16,8 @@ Prefer natural mixed-case English across all projects. Use Title Case for menu c
 Apply this editorially, not with a blanket `title()` or `upper()` transformation. Acronyms, names, hyphenated words and context require review. Case conversion must not change meaning, character voice, register, cultural specificity or intentional emotional intensity. Keep the reviewed spelling in translation records; rendering adapters must preserve it. If a renderer cannot support it safely, document that limitation instead of silently uppercasing.
 
 ## Tone, voice and meaning
+
+Use the [Narrative Tone, Character Voice, and Emotional Context framework](docs/narrative-context.md) before translating at scale. Its canonical method separates work-level tonal identity, scene mood/trajectory, stable character voice/persona, and a line's emotion, relationship and communicative intent. Evidence-backed private guides are revisable; they are not stereotypes or rules to make every scene match the dominant mood. Shared agent discovery exposes the same guide and revision-bound review notes without changing saved wording.
 
 Preserve humor, seriousness, sarcasm, tension, affection, awkwardness and emotional weight. Respect the source's level of maturity: do not sanitize, exaggerate, modernize, or introduce humor, profanity, romance or sexual implications absent from the Japanese. Preserve subtext, deliberate ambiguity, distinct personalities, speech patterns, relationships and levels of formality. Do not flatten everyone into contemporary American teenage speech or add unsupported information, motivations or emotions.
 

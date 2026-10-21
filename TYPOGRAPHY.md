@@ -35,6 +35,65 @@ The portable APIs are `patchquest.typography.font` and `patchquest.typography.la
 
 Resource-limited adapters can use `patchquest.core.packing.pack_blobs` to place indivisible byte assets into explicitly verified intervals. It performs deterministic bounded backtracking, never free-space discovery. Ownership, hardware bank limits, aliases, palette behavior and buffer lifetimes remain the private adapter's responsibility. Grouping tile byte patterns can improve compression without changing pixels, but every map reference must be rebuilt and validated after reassignment.
 
+### Tile dictionaries and transfer planning
+
+For repeated precomposed graphics, a dictionary of identical encoded tiles can
+reduce stored data while preserving the destination tile order. Deduplicate only
+compatible encodings; similar visible pixels do not establish identical bitplanes,
+palette interpretation or tile attributes. Pin the expanded input and assert its
+complete expected length before slicing it. Reconstruct every original payload
+byte-for-byte from the dictionary and its map, including blanks and repeated tiles.
+
+Report the complete storage tradeoff: dictionary, per-asset maps/descriptors,
+lookup tables, loader/helper code, alignment and retained fallback data. Report
+unused reservations separately from occupied bytes, and identify which old ranges
+are actually reusable. A smaller dictionary does not by itself shrink the ROM or
+establish whole-catalogue capacity. Measure a representative inventory before
+scaling; growing per-record helpers or dispatch chains can become the next limit.
+Consider a shared descriptor-driven loader when the measured tradeoff warrants it.
+
+Coalesce transfers only when source and destination ranges are both consecutive,
+the transfer mode is unchanged, and verified bank/window and length limits permit
+it. Repeated or adjacent destination tiles need not be adjacent in the dictionary.
+Account for descriptor dispatch, register setup, synchronization and fixed handler
+overhead as well as bytes transferred. More small transfers can reduce storage
+while increasing the number of frames needed to load. Use measured or justified
+costs for the actual path; a budget below an old transfer's payload cost is only a
+comparative bound, not proof that the complete interrupt fits its timing window.
+
+The independently authored [tile dictionary model](examples/tile_dictionary_model.py)
+uses invented four-byte units and abstract bank windows to demonstrate exact
+reconstruction, bounded coalescing and overhead reversing a storage saving. It is
+an executable teaching example, not a console codec, timing model or runtime API.
+Its [synthetic tests](tests/test_tile_dictionary_model.py) require no private data.
+Private adapters still own mapping, allocation, assembly and timing validation;
+use [transfer completion evidence](docs/runtime-evidence.md#transfer-completion-and-latency)
+before treating a storage experiment as a working renderer change.
+
+### Applying the pattern to other games and systems
+
+When repeated graphics or growing per-record loading code becomes a measured
+bottleneck, evaluate a dictionary of reusable graphics, per-record descriptors
+and lookup tables, and one bounded loader. This is an architectural option for
+other games and systems, not a requirement to reuse a particular game's loader.
+The transferable work is host-side inventory, deduplication, planning and
+validation; each target still needs its own verified runtime integration.
+
+For a new target, check its graphics units and attributes, addressing/banking,
+available memory, transfer mechanism, scheduling, buffer lifetime and fallback
+requirements. Do not carry over another system's assembly, interrupt assumptions,
+transfer budget or allocation. In other applications, the analogous design may
+be a shared asset atlas or cache with data-driven uploads; the same storage,
+loading-cost and completion questions apply without assuming a console model.
+
+Evaluate a representative workload before adopting the pattern. Heavily dynamic
+text may favor glyph caching or runtime composition over precomputed message
+variants. Already compact data, low repetition or tight working-memory limits
+may make a dictionary/loader split unhelpful. Record the measured benefit, costs
+and rejected alternatives in the private target's engineering notes. Treat this
+as an investigation opportunity for future integrations, not an implemented
+cross-platform renderer or permission to change other projects.
+
 ## Shared graphics and encoded text safeguards
 
 Tilemap inventories alone do not establish unused graphics. Numeric lookup tables, runtime map writers, status displays and hard-coded spacer references can consume tiles absent from static maps. Include these consumers in the allocation inventory. A blank-looking tile may be a required spacer; use a verified blank reference when repacking changes its contents. Validate related letters, digits, separators and their shared baseline together.

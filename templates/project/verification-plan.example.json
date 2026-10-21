@@ -1,0 +1,26 @@
+{
+  "data": {
+    "build_id": "",
+    "next_milestone": "Check the invented harbor greeting and save menu.",
+    "areas": [
+      {
+        "id": "greeting-review",
+        "label": "Greeting voice and meaning",
+        "stage": "language_review",
+        "method": "manual_review",
+        "expectation": "Compare the greeting with its source and the private narrative guide.",
+        "record_ids": ["greeting"]
+      },
+      {
+        "id": "save-reload",
+        "label": "Save and cold reload",
+        "stage": "gameplay",
+        "method": "reported_human",
+        "expectation": "Save through the menu, restart without a state, and confirm the saved values.",
+        "record_ids": []
+      }
+    ]
+  },
+  "expected": 0,
+  "actor": "example-agent"
+}

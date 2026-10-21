@@ -1,0 +1,60 @@
+{
+  "schema": 1,
+  "revision": 1,
+  "source_sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+  "previous": null,
+  "evidence": [
+    {
+      "id": "invented-shop",
+      "kind": "synthetic",
+      "reference": "docs/narrative/source-notes.md",
+      "locator": "Invented clock shop conversation; author a real source note when adapting this template",
+      "record_ids": ["shop-greeting"],
+      "observation": "Newly authored example: a clockmaker says, 'Another minute late? The clocks noticed.' The visitor laughs.",
+      "limitations": "Fictional teaching example, not evidence from a game. One scene alone does not establish a baseline."
+    },
+    {
+      "id": "invented-storm",
+      "kind": "synthetic",
+      "reference": "docs/narrative/source-notes.md",
+      "locator": "Independent invented storm scene",
+      "record_ids": ["storm-warning"],
+      "observation": "Newly authored example: the same clockmaker says, 'Stay inside. The bridge is unsafe.' The visitor stops smiling.",
+      "limitations": "A short warning establishes immediate caution, not the character's private feelings."
+    }
+  ],
+  "work": {
+    "claims": [
+      {"aspect": "tonal contrast", "kind": "interpretation", "text": "The sample moves from dry social humor into a plainly serious warning.", "evidence": ["invented-shop", "invented-storm"]}
+    ],
+    "guidance": ["Keep the joke light and the warning clear; do not add a punchline to the danger."],
+    "uncertainties": ["Two invented scenes cannot establish an entire work's tonal identity."]
+  },
+  "characters": [
+    {
+      "id": "clockmaker",
+      "label": "Invented clockmaker",
+      "record_ids": ["shop-greeting", "storm-warning"],
+      "claims": [
+        {"aspect": "voice baseline", "kind": "interpretation", "text": "Concise phrasing persists across these two situations; reserve judgment about a broader personality.", "evidence": ["invented-shop", "invented-storm"]}
+      ],
+      "guidance": ["Retain concise phrasing while allowing humor or seriousness as the exchange requires."],
+      "uncertainties": ["Fear, affection and the visitor's relationship are not established."]
+    }
+  ],
+  "scenes": [
+    {
+      "id": "storm",
+      "label": "Invented warning",
+      "record_ids": ["storm-warning"],
+      "character_ids": ["clockmaker"],
+      "claims": [
+        {"aspect": "intent versus emotion", "kind": "observation", "text": "The words direct the visitor to remain indoors and give a reason.", "evidence": ["invented-storm"]},
+        {"aspect": "speaker emotion", "kind": "unknown", "text": "Concern is plausible; its intensity and motivation are unknown.", "evidence": []}
+      ],
+      "guidance": ["Preserve the warning's practical intent and the shift away from joking."],
+      "uncertainties": ["No animation, audio or runtime timing was observed."]
+    }
+  ],
+  "reviews": []
+}

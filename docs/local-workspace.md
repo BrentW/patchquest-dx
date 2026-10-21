@@ -56,7 +56,7 @@ Not every hexadecimal value is private: console definitions and intentionally pu
 1. Check Python 3.10+ and Git, run doctor and public tests from [local setup](local-setup.md). No local config or ROM is required.
 2. Copy [the config example](../config/local.example.json) into .local/config/local.json only when absent. Never move originals just to satisfy settings; no game is selected by default.
 3. Create the local note index and useful notes. Record observed tool versions, how they were checked and applicability. Mark missing debugger/emulator/hardware capabilities unavailable or unknown.
-4. Copy the private project template to external storage. Supply its pinned source reference, research and runner there. Optionally register its manifest locally.
+4. Copy the private project template to external storage. Supply its pinned source reference, research and runner there. When using an existing shared Studio, register the authorized manifest in this installation's existing local configuration through [shared Studio setup](translation-studio.md#shared-studio-setup), coordinating its refresh with the workspace owner. Headless projects do not require registration.
 5. Run project-check on the explicit manifest. It checks source/schema only. Use the private runner for authorized work and retain approved/rejected checkpoints.
 6. Check `git check-ignore .local/config/local.json` and `git ls-files`: ignores do not protect already tracked files. Setup does not authorize staging or publication.
 

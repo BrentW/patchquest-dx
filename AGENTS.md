@@ -18,18 +18,80 @@ For every durable discovery, decide **platform improvement**, **private-project 
 - Preserve verified project findings and machine-specific workarounds in their private canonical records. Public instructions describe how to capture the information; they must not contain the owner's actual values. Private notes may link to public techniques; public documents must not link to real private projects.
 - Update lasting documentation when a verified finding changes supported setup, configuration, debugging or workflows. Keep implemented settings, defaults/validation, templates and tests synchronized. Reuse findings across sessions, label reported evidence and unresolved hypotheses, and retain useful superseded work. Temporary experiments do not become permanent rules.
 - Avoid duplication: keep generic techniques here, project details in the project, machine configuration in `.local/`. Never copy private information into tracked files, commit messages, generated public reports or test fixtures.
+- Keep installation-specific downstream integrations, editorial plans, deployment runbooks and coordination with external applications in private workspace notes. Public documentation describes reusable platform interfaces and their limits, not instructions for operating a particular downstream application.
+
+## Overarching goals and sustained work
+
+For substantial work spanning several milestones or sessions, establish a concrete
+overarching goal with observable completion criteria. Read the existing goal and
+handoff first. Reuse the user's established objective; do not replace it with the
+latest small follow-up or create a duplicate. Track bounded milestones beneath
+it, including what is verified, what remains and the next useful action.
+
+When no larger goal has been given, briefly prompt with two or three relevant
+options and recommend one. For example: complete a reproducible translation with
+runtime coverage; resolve a compatibility problem through a verified cold boot
+and save/load cycle; or deliver a reusable platform capability with independent
+tests and documentation. Tailor the options to the actual project and evidence.
+Continue the requested bounded work while awaiting the choice; a suggestion or
+silence does not authorize broader scope. Do not repeat the prompt once the user
+has chosen a goal or declined broader work.
+
+Use the agent's native goal facility when available and authorized under its
+tool contract. If it requires an explicit goal request, obtain that request
+before creating one; do not infer tool authorization from task size alone. If
+unavailable, retain the agreed objective, milestones and acceptance criteria in
+the private project handoff through the established state/workflow. Never invent
+a token budget, schedule, background task or separate agent session. A goal does
+not expand permissions for installation, publication or external communication.
+
+Keep the overarching goal open until its completion criteria are met. Finishing
+a batch, saving translations or passing static checks is not full runtime or
+hardware validation. Record remaining work and evidence limits at handoff, and
+follow the native tool's rules for completion, blocking and user-requested pauses.
 
 ## Translation state, Studio and agent compatibility
+
+Follow [translation exceptions and content classifications](docs/translation-exceptions.md).
+Keep progress, specific exceptions and source labels independent. Use existing
+revisioned issues and `assessment-context` tokens; investigate before requesting
+human input, preserve resolution history, and mark old evidence stale. Classify
+from source/context, never keywords alone or inferred ages/consent. Explicit
+content alone implies neither uncertainty, high severity nor approval. Follow
+configured provider safeguards and preserve permitted source meaning/explicitness.
+Record actual refusals separately from processing errors; never insert refusal
+or sanitized substitute text, claim success, or reroute to evade a restriction.
+Preserve human corrections and continue independent work. Keep evidence private.
+
+Before substantial narrative translation, follow [the narrative-context framework](docs/narrative-context.md). Establish evidence-backed work tone, scene trajectories, character baselines/personas and line-level emotion/intent/relationships. Distinguish observations, interpretations and unknowns; preserve serious contrasts within playful works and distinct voices across changing emotions. Keep actual versioned guides/reviews private and discover them through `agent-context` / `narrative-context`. Use the same guide for every agent. Review batches for meaning, voice drift, register, humor and emotional transitions; do not infer character traits from one exchange or invent context. Context audits suggest changes without rewriting approved translations or protected human corrections. Wording drives layout, never the reverse. No per-line/profile approval queue is required within authorized scope.
 
 Automatic by default; human correction by exception. Use the shared [state/Studio APIs](docs/translation-studio.md) for active versioned translations, contextual memory, glossary corrections, issues, progress and build snapshots. No mandatory translation approval queue exists. Agent-generated text is available to private builds through their technical validation pipeline. Human corrections are protected: retain an alternative proposal rather than replacing them. All writers use the revision they read, reconcile conflicts, and never bypass the state API by directly editing the database or an active export. Historical translation files remain frozen reproduction inputs after migration.
 
 Freeze consistent input snapshots for builds, bind evidence to the captured record revisions, and distinguish generated, inserted, automated-tested and actual gameplay/hardware results. Do not infer per-record runtime verification from whole-build approval. Studio is optional and local; it must not be required by headless translation/build workflows. Keep actual state, memory, snapshots, screenshots and reports in the private project; promote only generic APIs and synthetic tests. Read the roadmap before claiming unsupported build or agent capabilities.
 
+When an installation has a shared Studio, add authorized new projects through its existing explicit local registry and established launcher. Follow [shared Studio setup](docs/translation-studio.md#shared-studio-setup); coordinate shared configuration and refresh ownership, retain the authoritative private state store, and verify the project selector and progress report. Keep actual project paths and launcher details private. A separate project-only server is an explicit temporary exception, not the default onboarding path.
+
 Maintain one authoritative instruction source here and canonical skills under `.agents/skills/`. [Agent adapters](docs/agent-compatibility.md) use documented discovery conventions; regenerate thin adapters with `python tools/sync_agent_adapters.py` and check for drift after skill changes. Do not maintain separate provider workflows or require provider SDKs. Update canonical documentation and skills when verified capabilities change; record installed-agent limitations and private integration evidence locally.
 
 For sequential handoff or concurrent agent work, use the canonical [collaboration skill](.agents/skills/translation-collaboration/SKILL.md) and [coordination contract](docs/agent-collaboration.md). Discover the selected project's instruction paths and build capabilities with `agent-context`. Scope tasks to explicit records and shared resources; use transactional claims, current lease fences, revision checks and meaningful handoffs. Renew leases during sustained work. Once coordinated, records require `work-publish` for agent writes. Never impersonate a human, bypass the API, or overwrite protected corrections to resolve a conflict. Provider/model labels and self-reported task completion are provenance, not runtime verification or checkpoint approval. Resource leases coordinate cooperating agents; they do not replace filesystem ownership, diff review or OS permissions.
 
+For bounded specialist assignments, use the [game translation team skill](.agents/skills/game-translation-team/SKILL.md). It provides Project Manager, Text & Encoding Specialist, Translator, ROM & Layout Engineer and Game Tester guides with a shared assignment/handoff template. Select only the roles needed; they use the existing coordination contract and do not launch agents or expand authorized scope.
+
 ## Immutable inputs and reproducible development
+
+Use [runtime evidence](docs/runtime-evidence.md) for emulator inspection. Pin ROM,
+snapshot, record revisions, scenario, emulator binary and configuration. Capture
+actual frames and check independently justified expectations; retain failures and
+distinguish static validation, automated runtime and human acceptance. Never
+promote stale screenshots, synthetic frames or instruction traces into emulator
+proof. Isolate outputs and preserve saves/checkpoints. Observations may inform
+narrative context; interpretations remain separate. Do not claim audio findings
+without audio evidence. Keep real scenarios and machine findings private; promote
+reusable methods with synthetic tests. No utility install or restart is implied.
+
+During agent-run emulator tests, use the highest available speed the agent can
+reliably observe and control. Follow [emulator testing speed](docs/runtime-evidence.md#emulator-testing-speed)
+for acceleration, precision checks and restoring temporary settings.
 
 For Studio builds, an explicit private launcher supplies the validated pipeline to the generic `BuildWorker`; public code must never discover/import it or accept browser commands. Queue only advertised capabilities, freeze saved revisions atomically, preserve fresh output destinations, and keep automated validation separate from user checkpoint approval. Retain interrupted/failed jobs and diagnose them before retrying; never overwrite their outputs. Screenshot uploads stay private and hash-addressed. Keep provisional associations explicit, correct links through revisioned APIs, and do not infer per-record verification from an image or issue association. Update the canonical Studio guide and regenerate agent adapters when these supported workflows change.
 

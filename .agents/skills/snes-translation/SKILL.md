@@ -9,6 +9,13 @@ Read root AGENTS.md, [local setup](../../../docs/local-setup.md), [the project c
 
 ## Privacy, promotion and permanent maintenance
 
+For visual/runtime checks, follow [runtime evidence](../../../docs/runtime-evidence.md).
+Verify installed capabilities, use bounded private scenarios and exact build/
+revision bindings, capture genuine frames, and distinguish measured assertions
+from visual interpretation and human acceptance. Preserve failed runs, original
+saves and checkpoints. Synthetic tests and instruction traces are not emulator
+execution. Do not guess state compatibility, scrolling or audio support.
+
 The public platform never imports private project modules. Private runners consume public APIs. Keep game identities, hashes, encodings, addresses, translations, hooks, allocations, recipes, progress and debugging evidence in the private project. External project folders are preferred; .local/projects/ is an ignored alternative.
 
 Use [the information-classification table](../../../docs/local-workspace.md#information-classification-table). Classify durable discoveries as platform improvement, private-project knowledge, or both. Promote only independently generalized techniques with synthetic, newly authored or appropriately licensed tests. Removing a title does not anonymize byte signatures, offsets, distinctive code or dialogue. Private notes may reference public techniques; public records must not point to actual private projects.
@@ -39,6 +46,14 @@ Prove one visible phrase/menu and its reference chain first. Match source bytes,
 
 ## Extract and localize
 
+Follow [translation exceptions and content classifications](../../../docs/translation-exceptions.md).
+Investigate specific meaning/context/fidelity concerns separately from rendering
+and runtime limitations. Classify mature content using source and scene evidence,
+not isolated words; preserve age/consent uncertainty and provider safeguards.
+Record actual refusals without inserting substitute text or marking success.
+Use revision-bound existing issues, not a parallel review queue; keep content
+labels independent of progress and never rewrite human corrections from labels.
+
 For migrated projects, use the [shared state workflow](../../../docs/translation-studio.md): read current revisions/context and relevant memory/glossary, then write through the API with compare-and-swap revisions. Human corrections take precedence; record alternatives as proposals and never silently replace them. Preserve opaque controls and private source evidence. Agent text needs technical validation but no mandatory language-approval queue. Freeze a snapshot before building and bind insertion/test evidence to its revisions. Preserve historical language files for exact checkpoint reproduction.
 
 Offer the optional local Studio when browsing/correction would help; agent work and private builds must also function without it. Publish meaningful timestamped activity and independent progress stages through the same APIs, regardless of provider. Never infer decoded text from a partial transcription or gameplay verification from a build approval. Follow the public/private classification for state, issues, screenshots and discoveries. See [agent compatibility](../../../docs/agent-compatibility.md); maintain this canonical workflow and regenerate thin discovery adapters when it changes.
@@ -46,6 +61,8 @@ Offer the optional local Studio when browsing/correction would help; agent work 
 Extract editable records with stable IDs, source offsets/pointers, original bytes, lossless controls, context and translation fields. Keep originals, text and tables private. An unchanged extraction/insertion cycle must reproduce source bytes before bulk translation.
 
 Read [LOCALIZATION.md](../../../LOCALIZATION.md) and the shared contextual glossary, then private project terminology/voice notes. Translate natural English faithfully, preserving Japanese cultural specificity, tone and intentional ambiguity. Unknown meanings remain provisional. Do not distort meaning, truncate or invent context to fit storage/layout. Keep translation decisions separate from insertion code.
+
+Before a substantial narrative batch, read [the narrative-context framework](../../../docs/narrative-context.md) and the selected project's `narrative-context` packet advertised by `agent-context`. Establish work tone, scene trajectories, stable voice/persona, relationships and line-level emotion versus intent from traceable source evidence. Compare independent scenes; distinguish observations, interpretations and unknowns, and preserve tonal contrasts, ambiguity and development. No stereotypes, forced cheerfulness, invented motives or arbitrary catchphrases. Pin the guide revision/hash in the handoff, and review batches for voice drift, register, humor and emotional transitions. Keep suggested revisions inactive during an audit; never overwrite approved or protected wording. Layout adapts the translation's meaning. Store actual guides and samples privately; publish only generic methods and synthetic tests. See the guide's lightweight versioning and shared read API; no mandatory profile/line approval gate is introduced.
 
 Default to contextual Title Case for menu choices, sentence case for dialogue/exposition/prompts, and context-appropriate headings. Preserve proper nouns, acronyms, terminology, source voice and emphasis. ALL CAPS requires a deliberate stylistic reason. Review spelling editorially rather than applying blanket case conversion, and preserve it through layout and encoding. Document renderer limitations instead of silently uppercasing.
 
@@ -71,6 +88,14 @@ ROM output, and bind Studio summaries to frozen revisions. Plans are not edits
 to human corrections or claims of emulator verification.
 
 Before renderer/allocation changes, trace all callers and consumers, and budget ROM/banks, WRAM, VRAM, tile indices, DMA/VBlank, CPU/stack, buffer lifetimes and fallback paths. Account for cursors, highlights, scrolling, dynamic values and background restoration.
+
+For tile-dictionary or loader optimization, follow [transfer planning](../../../TYPOGRAPHY.md#tile-dictionaries-and-transfer-planning)
+and [completion evidence](../../../docs/runtime-evidence.md#transfer-completion-and-latency).
+Verify full expanded inputs and exact reconstruction, count maps/code/fallback as
+well as dictionary bytes, and bound contiguous transfers by the actual consumer.
+Measure queue completion and control behavior; matching pixels alone can precede
+the end of a load. Keep game-specific loaders private; the linked synthetic model
+illustrates invariants without implementing a console runtime.
 
 Review actual screenshots at native/documented integer scale. Test selected/unselected states, longest labels, largest valid values, empty/populated fields, scrolling, transitions and animation. Confirm navigation and selection behavior. Static specimens alone cannot approve a finished interface. Keep design approval, automated traces and runtime evidence distinct.
 

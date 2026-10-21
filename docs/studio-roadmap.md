@@ -1,5 +1,10 @@
 # Translation Studio roadmap
 
+Granular [exceptions and source classifications](translation-exceptions.md) now
+extend shared issue history and Studio filters/details. Legacy notes migrate
+without rewriting translations. Automatic semantic content detection and live
+provider processing are not implemented; agents/users supply contextual evidence.
+
 Automatic by default. Human correction by exception. Translation approval is
 not a prerequisite for a build; technical validation and checkpoint approval
 remain separate.
@@ -11,11 +16,18 @@ remain separate.
 | Early agent compatibility | Canonical instructions and skills | Codex discovery, thin Claude adapters, drift checks | Implemented; documented conventions and portable file checks, not end-to-end provider runtime certification |
 | 3. Expanded workflows | Validated private snapshot consumers | Screenshot uploads/association history and capability-based full build jobs | Implemented; selective builds and automatic screenshot matching remain deferred |
 | 4. Advanced coordination | Transactional state and snapshots | Shared agent context, scoped leases, dependencies, scheduling, handoffs and Studio status | Implemented; synthetic races and provider-independent interfaces; live runtime evidence is installation-specific |
+| Narrative context foundation | Canonical localization policy and shared state | Evidence-linked work tone, character/scene guides, shared read discovery and revision-bound sample reviews | Implemented; synthetic API tests and a separately private editorial sample; no automatic literary-quality certification |
+| Runtime inspection | Explicit emulator capabilities and private scenarios | Actual captures, observed assertions and exact build/revision evidence | Bounded scenarios, software libretro adapter and Studio evidence implemented; installed-emulator results remain separate private evidence |
+| Verification coverage and readiness | Existing runtime reports, snapshots and progress | Explicit area plans, revisioned assessments, stale/build binding, private status summaries and an on-demand Studio view | Implemented foundation; synthetic validation, no automatic full-game coverage or release approval |
+
+The [verification/readiness contract](verification-readiness.md) defines explicit
+coverage plans, build-bound assessments and private status summaries. Existing
+issues, attachments and immutable build APIs remain authoritative.
 
 Preserve approved outputs, historical recipes and font artwork during migration.
 Public tests use invented data; private integrations retain actual language,
-source identities, evidence and reproduction results externally. No major new
-game translation pass is part of this assignment.
+source identities, evidence and reproduction results externally. Game translation
+scope and scheduling are authorized and recorded in each private project.
 
 Studio can upload private screenshots, retain provisional/corrected associations,
 and queue full builds through an explicitly registered private worker. It can

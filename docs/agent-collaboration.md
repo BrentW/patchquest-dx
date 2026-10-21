@@ -51,7 +51,8 @@ JSON; conflicts exit 3 and invalid requests exit 2. For example:
 
    Use the actual returned fence/revisions, not these example values. Each batch
    commits atomically. It may change only target text and uncertainty in claimed
-   records. Source, controls and binding metadata cannot be changed here. Human
+   records. Source, controls and binding metadata cannot be changed in this
+   default mode; the source-interpretation mode below is explicit. Human
    corrections become proposals, never replacements. A stale revision rejects
    the entire batch; reread and reconcile rather than retry with a bumped number.
 7. `work-finish` takes the lease identifiers, `status` (`done`, `blocked`, or
@@ -66,6 +67,23 @@ The corresponding Python interface is `Coordination(Store(manifest))` in
 Studio displays sessions/tasks and their handoffs without launching agents.
 
 ## Conflicts and recovery
+
+For new decoding evidence, `work-publish` also accepts the explicit boolean
+`source_revision: true`. In that mode, require a nonempty `reason` and use changes
+with exactly `id`, `expected`, and `source_patch`. The patch may contain only
+`source`, `decoded`, `controls`, and `context`; object/list fields are replaced,
+so retain prior evidence when supplying them. This mode cannot change target
+wording, uncertainty, raw source references, build bindings, or record identity.
+Use a separate ordinary publication for target/uncertainty changes, rereading the
+new revision first. Both modes require the same current claim/fence and commit
+atomically. Protected human records yield inactive proposals even when only
+source interpretation changes. Historical snapshots and revisions stay intact.
+
+The generic store validates structure and concurrency, not the decoding claim.
+Keep lossless original bytes and evidence in the private project; review each
+interpretation before publishing it. Revised source metadata does not validate
+control placement, insertion, runtime behavior, or old narrative/build evidence.
+Reassess revision-bound evidence and freeze a fresh snapshot before building.
 
 Once a record has been claimed, it stays coordinated: generic non-human `put`
 cannot bypass ownership after expiry or completion. Claim a new scoped task and
